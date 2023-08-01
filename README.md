@@ -29,7 +29,6 @@
 ## ER図
 ![Screenshot of the app](/public/ER図.png)
 
-
 ## 画面遷移図
 ![Screenshot of the app](/public/画面遷移図.png)
 
