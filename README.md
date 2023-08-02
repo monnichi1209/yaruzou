@@ -5,10 +5,10 @@
 
 ## 就職Termの技術
 - device
-- AWS
+- AWS EC2
 
 ## カリキュラム外の技術
-- React
+- Vue.js
 
 ## 実行手順
 1. `git clone git@github.com:monnichi1209/yaruzou.git`
