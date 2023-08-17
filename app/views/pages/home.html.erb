@@ -1,0 +1,15 @@
+<div class="flex-container">
+  <div class="content">
+    <div class="text">
+      このアプリケーションは、<br>
+      子供の家庭でのおてつだいを<br>
+      楽しく習慣化することをことをすることを<br>
+      目指しています。<br><br>
+
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %> 
+      <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post %>
+      <%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary" %>
+    </div>
+    <img src="/animal_zou.png" alt="Sample Image">
+  </div>
+</div>

@@ -4,6 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'devise'
+gem 'devise-i18n'
+gem 'rails_admin'
+gem 'rails-i18n', '~> 6.0' # Railsの基本的な日本語化のためのgem
+gem 'rails_admin-i18n' # rails_adminの日本語化のためのgem
 gem 'rexml'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
 gem 'pg', '~> 1.1'
