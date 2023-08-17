@@ -6,6 +6,10 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def tasks_for_kids
+    @tasks = Task.all 
+  end
+
   def show
     @task = Task.find(params[:id])
   end

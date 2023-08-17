@@ -12,7 +12,12 @@ Rails.application.routes.draw do
     post 'users/admin_guest_sign_in', to: 'users/sessions#admin_guest_sign_in'
   end
 
-  resources :tasks
+  resources :tasks do
+    collection do
+      get 'tasks_for_kids'
+    end
+  end
+
   root 'pages#home'
 
   if Rails.env.development?
