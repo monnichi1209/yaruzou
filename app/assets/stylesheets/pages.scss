@@ -1,0 +1,25 @@
+.flex-container {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  height: 100vh; // 画面の全高さを使用
+  flex-direction: column; // 子要素を垂直方向に並べる
+}
+
+
+.text {
+  font-size: 30px;
+  font-weight: bold;
+  flex: 1; /* コンテナの空きスペースをすべてテキストに使用 */
+}
+
+.image {
+  width: 150px; /* 画像の幅を150pxに設定。必要に応じて調整 */
+  height: auto; /* 画像のアスペクト比を保持 */
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

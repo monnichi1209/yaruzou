@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'devise'
+gem 'devise-i18n'
 gem 'rexml'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
 gem 'pg', '~> 1.1'
