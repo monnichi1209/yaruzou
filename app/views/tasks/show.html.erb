@@ -1,0 +1,10 @@
+<h1><%= @task.name %></h1>
+
+<p><strong>詳細:</strong> <%= @task.description %></p>
+<p><strong>状態:</strong> <%= @task.status %></p>
+<p><strong>期限:</strong> <%= @task.due_on %></p>
+<p><strong>報酬:</strong> <%= @task.reward %></p>
+
+<%= link_to '編集', edit_task_path(@task) %> |
+<%= link_to '削除', @task, method: :delete, data: { confirm: '本当に削除しますか？' } %> |
+<%= link_to '一覧に戻る', tasks_path %>
