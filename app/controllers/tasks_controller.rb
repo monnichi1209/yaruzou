@@ -3,8 +3,46 @@ class TasksController < ApplicationController
   before_action :authenticate_user! 
 
   def index
-    @tasks = Task.all
+    if params[:child_id]
+      @tasks = Task.where(user_id: params[:child_id], status: "着手中")
+      Rails.logger.debug("Tasks for child_id #{params[:child_id]}: #{@tasks.inspect}")
+    else
+      @tasks = Task.all
+    end
   end
+  
+  def choose
+    task = Task.find(params[:id])
+    if task.update(user_id: params[:child_id], status: "着手中")
+        redirect_to tasks_path(child_id: params[:child_id]), notice: "お手伝いを選びました！"
+    else
+        puts task.errors.full_messages # ここでエラーメッセージをログに出力
+        redirect_to tasks_path(child_id: params[:child_id]), alert: "何らかのエラーが発生しました。"
+    end
+  end
+
+  def mark_complete
+    task = Task.find(params[:id])
+    if task.update(status: "完了")
+        redirect_to tasks_path(child_id: task.user_id), notice: "お手伝いが完了しました！"
+    else
+        redirect_to tasks_path(child_id: task.user_id), alert: "何らかのエラーが発生しました。"
+    end
+  end
+
+  # tasks_controller.rb
+def tasks_for_kids
+  @tasks = Task.where.not(status: "着手中")
+end
+
+
+  def rewards
+    child_id = params[:child_id]
+    @completed_tasks = Task.where(user_id: child_id, status: "完了")
+  end  
+  
+  def under_construction
+  end  
 
   def show
     @task = Task.find(params[:id])
@@ -42,10 +80,14 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: 'タスクが正常に削除されました'
   end
   
-  private
+private
 
 def task_params
-params.require(:task).permit(:name, :description, :status, :due_on, :user_id, :reward)
+params.require(:task).permit(:name, :description, :status, :due_on, :reward)
+end
+
+def set_task
+@task = Task.find(params[:id])
 end
 end
 

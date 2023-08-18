@@ -11,12 +11,41 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-    <% if current_user.admin? %>
-      <%= link_to '管理者ページ', rails_admin.dashboard_path %>
+    <!-- サイドメニューの追加 -->
+    <% if user_signed_in? && !@is_guardian_page %>
+      <nav class="side-menu">
+        <ul>
+          <li>
+          <%= link_to "進行状況", tasks_path(child_id: params[:child_id]) %>
+          </li>
+          <li>
+          <%= link_to "お手伝い", tasks_for_kids_tasks_path(child_id: params[:child_id]) %>
+          </li>
+          <li><%= link_to "報酬", rewards_tasks_path(child_id: params[:child_id]) %></li>
+          <li><%= link_to "バッジ", "/tasks/badge" %></li>
+          <li><%= link_to "マニュアル", "/tasks/manual" %></li>
+        </ul>
+      </nav>
     <% end %>
-      <%= link_to "お手伝い登録", new_task_path %>
+
+    <div class="main-content">
+    <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <%= link_to '管理者ページ', rails_admin.dashboard_path %>
+      <% end %>
+      <% if user_signed_in? && !current_user.admin? %>
+  <% children = current_user.children %>
+  <select id="child-switcher">
+    <% children.each do |child| %>
+      <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
+        <%= child.name %>
+      </option>
+    <% end %>
+  </select>
+      
+      <%= link_to "保護者", dashboard_parents_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <% end %>
     <% else %>
       <%= link_to "新規登録", new_user_registration_path %>
       <%= link_to "ログイン", new_user_session_path %>
@@ -24,5 +53,6 @@
     <% end %>
 
     <%= yield %>
+  </div>
   </body>
 </html>

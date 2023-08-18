@@ -12,7 +12,28 @@ Rails.application.routes.draw do
     post 'users/admin_guest_sign_in', to: 'users/sessions#admin_guest_sign_in'
   end
 
-  resources :tasks
+  resources :tasks do
+    collection do
+      get 'tasks_for_kids'
+      get 'rewards'
+      get 'manual', to: 'pages#under_construction'
+      get 'badge', to: 'pages#under_construction'
+    end
+
+    member do
+      put 'choose'
+      put 'mark_complete'
+    end
+  end
+
+  resources :parents, only: [] do
+    collection do
+      get 'new_child', to: 'parents#new_child'
+      post 'create_child', to: 'parents#create_child'
+      get 'dashboard'
+    end
+  end
+
   root 'pages#home'
 
   if Rails.env.development?
