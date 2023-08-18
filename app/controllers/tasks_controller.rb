@@ -23,8 +23,11 @@ class TasksController < ApplicationController
 
   def mark_complete
     task = Task.find(params[:id])
-    task.update(status: "完了")
-    redirect_to tasks_path, notice: "お手伝いが完了しました！"
+    if task.update(status: "完了")
+        redirect_to tasks_path(child_id: task.user_id), notice: "お手伝いが完了しました！"
+    else
+        redirect_to tasks_path(child_id: task.user_id), alert: "何らかのエラーが発生しました。"
+    end
   end
 
   def tasks_for_kids
@@ -32,8 +35,9 @@ class TasksController < ApplicationController
   end
 
   def rewards
-    @completed_tasks = Task.where(status: '完了', user_id: current_user.id)
-  end
+    child_id = params[:child_id]
+    @completed_tasks = Task.where(user_id: child_id, status: "完了")
+  end  
   
   def under_construction
   end  

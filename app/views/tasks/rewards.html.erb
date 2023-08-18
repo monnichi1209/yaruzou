@@ -1,9 +1,11 @@
-<h1>報酬</h1>
-<p>以下は完了したお手伝いの一覧です:</p>
+<h1>報酬ページ</h1>
+
 <table>
   <thead>
     <tr>
       <th>タスク名</th>
+      <th>状態</th>
+      <th>期限</th>
       <th>報酬</th>
     </tr>
   </thead>
@@ -11,7 +13,9 @@
     <% @completed_tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
-        <td><%= task.reward %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due_on %></td>
+        <td><%= task.reward %>円</td>
       </tr>
     <% end %>
   </tbody>
