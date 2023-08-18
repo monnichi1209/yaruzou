@@ -12,15 +12,13 @@
 
   <body>
     <!-- サイドメニューの追加 -->
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !@is_guardian_page %>
       <nav class="side-menu">
         <ul>
-          <li><%= link_to "お手伝い", "/tasks/tasks_for_kids" %></li>
-          <li><%= link_to "報酬", "/tasks/rewards" %></li>
+          <li><%= link_to "お手伝い", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+          <li><%= link_to "報酬", rewards_tasks_path(child_id: params[:child_id]) %></li>
           <li><%= link_to "バッジ", "/tasks/badge" %></li>
           <li><%= link_to "マニュアル", "/tasks/manual" %></li>
-          <li><%= link_to "保護者", "#保護者のURL" %></li>
-          <li><%= link_to "戻る", "#戻るのURL" %></li>
         </ul>
       </nav>
     <% end %>
@@ -30,8 +28,8 @@
       <% if current_user.admin? %>
         <%= link_to '管理者ページ', rails_admin.dashboard_path %>
       <% end %>
-      <%= link_to "進行状況", tasks_path %>
-      <%= link_to "お手伝い登録", new_task_path %>
+      <%= link_to "ホーム", tasks_path(child_id: params[:child_id]) %>
+      <%= link_to "保護者", dashboard_parents_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to "新規登録", new_user_registration_path %>

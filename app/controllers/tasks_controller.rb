@@ -3,7 +3,28 @@ class TasksController < ApplicationController
   before_action :authenticate_user! 
 
   def index
-    @tasks = Task.all
+    if params[:child_id]
+      @tasks = Task.where(user_id: params[:child_id], status: "着手中")
+      Rails.logger.debug("Tasks for child_id #{params[:child_id]}: #{@tasks.inspect}")
+    else
+      @tasks = Task.all
+    end
+  end
+  
+  def choose
+    task = Task.find(params[:id])
+    if task.update(user_id: params[:child_id], status: "着手中")
+        redirect_to tasks_path(child_id: params[:child_id]), notice: "お手伝いを選びました！"
+    else
+        puts task.errors.full_messages # ここでエラーメッセージをログに出力
+        redirect_to tasks_path(child_id: params[:child_id]), alert: "何らかのエラーが発生しました。"
+    end
+  end
+
+  def mark_complete
+    task = Task.find(params[:id])
+    task.update(status: "完了")
+    redirect_to tasks_path, notice: "お手伝いが完了しました！"
   end
 
   def tasks_for_kids
@@ -56,7 +77,7 @@ class TasksController < ApplicationController
 private
 
 def task_params
-params.require(:task).permit(:name, :description, :status, :due_on, :user_id, :reward)
+params.require(:task).permit(:name, :description, :status, :due_on, :reward)
 end
 
 def set_task

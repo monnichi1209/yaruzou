@@ -18,7 +18,19 @@ Rails.application.routes.draw do
       get 'rewards'
       get 'manual', to: 'pages#under_construction'
       get 'badge', to: 'pages#under_construction'
+    end
 
+    member do
+      put 'choose'
+      put 'mark_complete'
+    end
+  end
+
+  resources :parents, only: [] do
+    collection do
+      get 'new_child', to: 'parents#new_child'
+      post 'create_child', to: 'parents#create_child'
+      get 'dashboard'
     end
   end
 

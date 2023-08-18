@@ -1,0 +1,36 @@
+<h1>保護者ダッシュボード</h1>
+
+<p>こちらは保護者のダッシュボードページです。</p>
+
+<h2>子ども一覧</h2>
+<ul>
+  <% @children.each do |child| %>
+    <li><%= child.name %></li>
+  <% end %>
+</ul>
+
+<% @children.each do |child| %>
+  <%= link_to child.name, tasks_path(child_id: child.id) %>
+<% end %>
+
+
+
+<%= link_to "子どもを追加", new_child_parents_path %>
+
+<h2>お手伝い一覧</h2>
+<table>
+  <!-- ヘッダー部分を表示 -->
+  <thead>
+    ...
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= link_to '編集', edit_task_path(task) %></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "お手伝いを追加", new_task_path %>

@@ -1,4 +1,4 @@
-<h1>タスク一覧</h1>
+<h1>お手伝い進行状況</h1>
 
 <table>
   <thead>
@@ -16,14 +16,14 @@
         <td><%= link_to task.name, task %></td>
         <td><%= task.status %></td>
         <td><%= task.due_on %></td>
-        <td><%= task.reward %></td>
+        <td><%= task.reward %>円</td>
         <td>
           <%= link_to '編集', edit_task_path(task) %> |
           <%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %>
+          <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to '新しいタスクを追加', new_task_path %>

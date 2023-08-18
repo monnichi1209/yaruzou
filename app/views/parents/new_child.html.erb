@@ -1,0 +1,23 @@
+<h1>子どもを追加</h1>
+
+<%= form_for User.new, url: create_child_parents_path do |f| %>
+
+<% if @child.errors.any? %>
+  <div class="error_messages">
+    <ul>
+    <% @child.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <div class="field">
+    <%= f.label :name, "子どもの名前" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>

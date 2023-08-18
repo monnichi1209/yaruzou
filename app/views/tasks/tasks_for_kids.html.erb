@@ -14,6 +14,9 @@
         <td><%= task.name %></td>
         <td><%= task.description %></td>
         <td><%= task.reward %>円</td>
+        <td>
+        <%= button_to "このお手伝いをする！", choose_task_path(task, child_id: params[:child_id]), method: :put %>
+        </td>
       </tr>
     <% end %>
   </tbody>
