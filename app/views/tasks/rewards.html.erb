@@ -1,0 +1,18 @@
+<h1>報酬</h1>
+<p>以下は完了したお手伝いの一覧です:</p>
+<table>
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>報酬</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @completed_tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.reward %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

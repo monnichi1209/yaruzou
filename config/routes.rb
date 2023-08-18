@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :tasks do
     collection do
       get 'tasks_for_kids'
+      get 'rewards'
     end
   end
 

@@ -10,6 +10,11 @@ class TasksController < ApplicationController
     @tasks = Task.all 
   end
 
+  def rewards
+    @completed_tasks = Task.where(status: '完了', user_id: current_user.id)
+  end
+  
+
   def show
     @task = Task.find(params[:id])
   end
@@ -46,10 +51,14 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: 'タスクが正常に削除されました'
   end
   
-  private
+private
 
 def task_params
 params.require(:task).permit(:name, :description, :status, :due_on, :user_id, :reward)
+end
+
+def set_task
+@task = Task.find(params[:id])
 end
 end
 
