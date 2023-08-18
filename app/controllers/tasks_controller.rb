@@ -30,9 +30,11 @@ class TasksController < ApplicationController
     end
   end
 
-  def tasks_for_kids
-    @tasks = Task.all 
-  end
+  # tasks_controller.rb
+def tasks_for_kids
+  @tasks = Task.where.not(status: "着手中")
+end
+
 
   def rewards
     child_id = params[:child_id]
