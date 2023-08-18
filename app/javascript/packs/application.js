@@ -7,7 +7,10 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import '../child_switcher';
+
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+

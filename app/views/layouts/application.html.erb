@@ -28,9 +28,19 @@
       <% if current_user.admin? %>
         <%= link_to '管理者ページ', rails_admin.dashboard_path %>
       <% end %>
+      <% if user_signed_in? && !current_user.admin? %>
+  <% children = current_user.children %>
+  <select id="child-switcher">
+    <% children.each do |child| %>
+      <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
+        <%= child.name %>
+      </option>
+    <% end %>
+  </select>
       <%= link_to "ホーム", tasks_path(child_id: params[:child_id]) %>
       <%= link_to "保護者", dashboard_parents_path %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <% end %>
     <% else %>
       <%= link_to "新規登録", new_user_registration_path %>
       <%= link_to "ログイン", new_user_session_path %>
