@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     collection do
       get 'tasks_for_kids'
       get 'rewards'
+      get 'manual', to: 'pages#under_construction'
+      get 'badge', to: 'pages#under_construction'
+
     end
   end
 

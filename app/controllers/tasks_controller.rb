@@ -14,6 +14,8 @@ class TasksController < ApplicationController
     @completed_tasks = Task.where(status: '完了', user_id: current_user.id)
   end
   
+  def under_construction
+  end  
 
   def show
     @task = Task.find(params[:id])
