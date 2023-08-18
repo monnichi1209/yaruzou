@@ -20,7 +20,7 @@
         <td>
           <%= link_to '編集', edit_task_path(task) %> |
           <%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %>
-          <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put %>
+          <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put%>
         </td>
       </tr>
     <% end %>
