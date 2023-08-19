@@ -22,15 +22,44 @@ class ParentsController < ApplicationController
 
   def dashboard
     @children = current_user.children
-    @tasks = Task.where(user_id: @children)
-
+  
+    # 1. パラメータからフィルタリングやソートの値を取得
+    name_filter = params[:name_filter]
+    status_filter = params[:status_filter]
+    sort_option = params[:sort]
+  
+    # 2. 取得した値に基づいて、@tasks のクエリを修正
+    tasks_query = Task.where(user_id: @children)
+  
+    # 名前でのフィルタリング
+    tasks_query = tasks_query.where("name LIKE ?", "%#{name_filter}%") if name_filter.present?
+  
+    # 状態でのフィルタリング
+    unless status_filter == "全て" || status_filter.blank?
+      tasks_query = tasks_query.where(status: status_filter)
+    end
+  
+    # ソート
+    case sort_option
+    when "期限昇順"
+      tasks_query = tasks_query.order(due_on: :asc)
+    when "期限降順"
+      tasks_query = tasks_query.order(due_on: :desc)
+    when "報酬昇順"
+      tasks_query = tasks_query.order(reward: :asc)
+    when "報酬降順"
+      tasks_query = tasks_query.order(reward: :desc)
+    end
+  
+    @tasks = tasks_query
+  
     @children_with_tasks = @children.map do |child|
       {
         child: child,
         tasks: Task.where(user_id: child.id, status: ["着手中", "完了"])
       }
     end
-  end
+  end  
 
   private
 

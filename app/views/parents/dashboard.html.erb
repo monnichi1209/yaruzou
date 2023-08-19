@@ -27,11 +27,26 @@
 
 <%= link_to "子どもを追加", new_child_parents_path %>
 
+<%= form_tag(dashboard_parents_path, method: :get) do %>
+  <!-- フィルタリング -->
+  お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
+  状態: <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]) %>
+
+  <!-- ソート -->
+  並べ替え: <%= select_tag :sort, options_for_select(["期限昇順", "期限降順", "報酬昇順", "報酬降順"], params[:sort]) %>
+
+  <%= submit_tag "フィルタリング&ソート" %>
+<% end %>
+
 <h2>お手伝い一覧</h2>
 <table>
   <!-- ヘッダー部分を表示 -->
   <thead>
-    ...
+  <tr>
+    <th>お手伝い名</th>
+    <th>編集</th>
+    <th>削除</th>
+  </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
