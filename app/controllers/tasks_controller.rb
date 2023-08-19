@@ -45,10 +45,12 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @hide_sidebar = true
   end
 
   def new
     @task = Task.new
+    @hide_sidebar = true
   end
 
   def create
@@ -67,9 +69,9 @@ class TasksController < ApplicationController
     redirect_back(fallback_location: tasks_path, notice: 'お手伝いがキャンセルされました')
   end
   
-
   def edit
     @task = Task.find(params[:id])
+    @hide_sidebar = true
   end
 
   def update
@@ -84,7 +86,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_url, notice: 'タスクが正常に削除されました'
+    redirect_back(fallback_location: dashboard_parents_path, notice: 'タスクが正常に削除されました')
   end
   
 private

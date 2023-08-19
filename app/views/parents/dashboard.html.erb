@@ -34,6 +34,7 @@
   <thead>
     <tr>
       <th>お手伝い名</th>
+      <th>詳細</th>
       <th>状態</th>
       <th>期限日</th>
       <th>報酬</th>
@@ -45,6 +46,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
+        <td><%= task.description %></td>
         <td><%= task.status %></td>
         <td><%= task.due_on %></td>
         <td><%= task.reward %>円</td>

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<% if user_signed_in? && !@is_guardian_page && !@is_role_selection %>
+<% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニューの追加 -->
     <nav class="side-menu">
       <ul>

@@ -9,11 +9,11 @@
   </div>
   <div>
     <%= f.label :due_on, "期限" %>
-    <%= f.date_field :due_on %>
+     <%= f.select :due_on, [["今日", Date.today], ["明日", Date.today + 1.day], ["来週", Date.today + 7.days]] %>
   </div>
   <div>
     <%= f.label :reward, "報酬" %>
-    <%= f.text_field :reward %>
+    <%= f.select :reward, (100..5000).step(100).map { |x| [x.to_s + '円', x] } %>
   </div>
   <div>
     <%= f.submit %>
