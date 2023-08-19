@@ -22,12 +22,14 @@ class TasksController < ApplicationController
   end
 
   def mark_complete
-    task = Task.find(params[:id])
-    if task.update(status: "完了")
-        redirect_to tasks_path(child_id: task.user_id), notice: "お手伝いが完了しました！"
-    else
-        redirect_to tasks_path(child_id: task.user_id), alert: "何らかのエラーが発生しました。"
-    end
+    @task = Task.find(params[:id])
+    @task.update(status: "完了")
+    
+    current_user.points ||= 0
+    current_user.points += @task.reward # ポイントを加算
+    current_user.save
+  
+    redirect_to tasks_path(child_id: current_user.id), notice: 'タスクが完了しました'
   end
 
   def tasks_for_kids

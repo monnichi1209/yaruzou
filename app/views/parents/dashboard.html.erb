@@ -17,9 +17,9 @@
   <h3><%= data[:child].name %>のお手伝い</h3>
   <ul>
     <% data[:tasks].each do |task| %>
-      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>円</li> <!-- 各タスクの報酬を表示 -->
+      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント</li> <!-- 各タスクの報酬を表示 -->
     <% end %>
-    <li>合計: <%= data[:total_reward] %>円</li> <!-- 各子供の報酬の合計を表示 -->
+    <li>合計: <%= data[:total_reward] %>ポイント</li> <!-- 各子供の報酬の合計を表示 -->
   </ul>
 <% end %>
 
@@ -50,7 +50,7 @@
         <td><%= task.description %></td>
         <td><%= task.status %></td>
         <td><%= task.due_on %></td>
-        <td><%= task.reward %>円</td>
+        <td><%= task.reward %>ポイント</td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
       </tr>
