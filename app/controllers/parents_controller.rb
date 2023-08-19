@@ -23,6 +23,13 @@ class ParentsController < ApplicationController
   def dashboard
     @children = current_user.children
     @tasks = Task.where(user_id: @children)
+
+    @children_with_tasks = @children.map do |child|
+      {
+        child: child,
+        tasks: Task.where(user_id: child.id, status: ["着手中", "完了"])
+      }
+    end
   end
 
   private

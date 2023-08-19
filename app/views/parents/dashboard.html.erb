@@ -9,6 +9,16 @@
   <% end %>
 </ul>
 
+<% @children_with_tasks.each do |data| %>
+  <h3><%= data[:child].name %>のお手伝い</h3>
+  <ul>
+    <% data[:tasks].each do |task| %>
+      <li><%= task.name %> - <%= task.status %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
 <% @children.each do |child| %>
   <%= link_to child.name, tasks_path(child_id: child.id) %>
 <% end %>

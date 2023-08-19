@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'rewards'
       get 'manual', to: 'pages#under_construction'
       get 'badge', to: 'pages#under_construction'
+      get 'parents_dashboard'
     end
 
     member do
