@@ -1,11 +1,13 @@
 <h1>お手伝い一覧</h1>
 
+<% if @tasks && @tasks.any? %>
 <table>
   <thead>
     <tr>
       <th>タスク名</th>
       <th>詳細</th>
       <th>報酬</th>
+      <th>アクション</th> 
     </tr>
   </thead>
   <tbody>
@@ -21,3 +23,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+  <p>お手伝いのタスクはありません。</p>
+<% end %>

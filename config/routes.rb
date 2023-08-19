@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'pages/home'
   
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
   # devise_scopeを追加
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     member do
       put 'choose'
       put 'mark_complete'
+      put 'cancel_task'
     end
   end
 
@@ -35,6 +37,8 @@ Rails.application.routes.draw do
       delete 'destroy_child/:id', to: 'parents#destroy_child', as: 'destroy_child'
     end
   end
+
+  get 'role_selection', to: 'role_selection#index' # 役割選択ページのルーティングを変更
 
   root 'pages#home'
 

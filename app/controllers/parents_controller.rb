@@ -8,10 +8,8 @@ class ParentsController < ApplicationController
   def create_child
     @child = User.new(child_params)
     @child.role = "kid"
-
     @child.email = SecureRandom.uuid + "@example.com"
     @child.password = SecureRandom.hex(8)
-
     if @child.save
       FamilyLink.create(parent: current_user, child: @child)
       redirect_to dashboard_parents_path, notice: "子どもを追加しました"
@@ -35,8 +33,9 @@ class ParentsController < ApplicationController
     sort_option = params[:sort]
   
     # 2. 取得した値に基づいて、@tasks のクエリを修正
-    tasks_query = Task.where(user_id: @children)
-  
+    tasks_query = Task.where(user_id: @children + [current_user.id])
+
+
     # 名前でのフィルタリング
     tasks_query = tasks_query.where("name LIKE ?", "%#{name_filter}%") if name_filter.present?
   
@@ -60,11 +59,15 @@ class ParentsController < ApplicationController
     @tasks = tasks_query
   
     @children_with_tasks = @children.map do |child|
+      tasks = Task.where(user_id: child.id, status: ["着手中", "完了"])
+      completed_tasks = tasks.where(status: "完了")
+      total_reward = completed_tasks.sum(:reward)
       {
         child: child,
-        tasks: Task.where(user_id: child.id, status: ["着手中", "完了"])
+        tasks: tasks,
+        total_reward: total_reward
       }
-    end
+    end    
   end  
 
   private

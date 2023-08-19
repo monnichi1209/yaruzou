@@ -11,21 +11,21 @@
 </head>
 
 <body>
+<% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニューの追加 -->
-  <% if user_signed_in? && !@is_guardian_page %>
     <nav class="side-menu">
       <ul>
         <li><%= link_to "進行状況", tasks_path(child_id: params[:child_id]) %></li>
         <li><%= link_to "お手伝い", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
         <li><%= link_to "報酬", rewards_tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "バッジ", "/tasks/badge" %></li>
-        <li><%= link_to "マニュアル", "/tasks/manual" %></li>
+        <li><%# link_to "バッジ", "/tasks/badge" %></li>
+        <li><%# link_to "マニュアル", "/tasks/manual" %></li>
       </ul>
     </nav>
   <% end %>
 
   <div class="main-content">
-  <% if user_signed_in? %>
+  <% if user_signed_in? && !@is_role_selection %>
     <% if current_user.admin? %>
       <%= link_to '管理者ページ', rails_admin.dashboard_path %>
     <% else %>

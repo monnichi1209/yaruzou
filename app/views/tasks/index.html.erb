@@ -4,23 +4,23 @@
   <thead>
     <tr>
       <th>タスク名</th>
-      <th>状態</th>
+      <th>詳細</th>
       <th>期限</th>
       <th>報酬</th>
-      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.name, task %></td>
-        <td><%= task.status %></td>
+        <td><%= task.name %></td>
+        <td><%= task.description %></td>
         <td><%= task.due_on %></td>
         <td><%= task.reward %>円</td>
         <td>
-          <%= link_to '編集', edit_task_path(task) %> |
-          <%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %>
           <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put%>
+        </td>
+        <td>
+        <%= button_to "お手伝いをやめる", cancel_task_task_path(task), method: :put %>
         </td>
       </tr>
     <% end %>

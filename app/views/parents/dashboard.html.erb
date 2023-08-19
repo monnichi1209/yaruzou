@@ -17,12 +17,12 @@
   <h3><%= data[:child].name %>のお手伝い</h3>
   <ul>
     <% data[:tasks].each do |task| %>
-      <li><%= task.name %> - <%= task.status %></li>
+      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>円</li> <!-- 各タスクの報酬を表示 -->
     <% end %>
+    <li>合計: <%= data[:total_reward] %>円</li> <!-- 各子供の報酬の合計を表示 -->
   </ul>
 <% end %>
 
-<h2>お手伝い一覧</h2>
 <%= form_tag(dashboard_parents_path, method: :get) do %>
   お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
   状態: <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]) %>
@@ -30,10 +30,12 @@
   <%= submit_tag "フィルタリング&ソート" %>
 <% end %>
 
+<h2>お手伝い一覧</h2>
 <table>
   <thead>
     <tr>
       <th>お手伝い名</th>
+      <th>詳細</th>
       <th>状態</th>
       <th>期限日</th>
       <th>報酬</th>
@@ -45,6 +47,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
+        <td><%= task.description %></td>
         <td><%= task.status %></td>
         <td><%= task.due_on %></td>
         <td><%= task.reward %>円</td>
