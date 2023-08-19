@@ -11,8 +11,8 @@
 </head>
 
 <body>
+<% if user_signed_in? && !@is_guardian_page && !@is_role_selection %>
   <!-- サイドメニューの追加 -->
-  <% if user_signed_in? && !@is_guardian_page %>
     <nav class="side-menu">
       <ul>
         <li><%= link_to "進行状況", tasks_path(child_id: params[:child_id]) %></li>
@@ -25,7 +25,7 @@
   <% end %>
 
   <div class="main-content">
-  <% if user_signed_in? %>
+  <% if user_signed_in? && !@is_role_selection %>
     <% if current_user.admin? %>
       <%= link_to '管理者ページ', rails_admin.dashboard_path %>
     <% else %>

@@ -22,7 +22,6 @@
   </ul>
 <% end %>
 
-<h2>お手伝い一覧</h2>
 <%= form_tag(dashboard_parents_path, method: :get) do %>
   お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
   状態: <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]) %>
@@ -30,6 +29,7 @@
   <%= submit_tag "フィルタリング&ソート" %>
 <% end %>
 
+<h2>お手伝い一覧</h2>
 <table>
   <thead>
     <tr>

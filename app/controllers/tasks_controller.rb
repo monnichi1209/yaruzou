@@ -9,8 +9,8 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
-  end
-  
+  end  
+
   def choose
     task = Task.find(params[:id])
     if task.update(user_id: params[:child_id], status: "着手中")
@@ -30,10 +30,11 @@ class TasksController < ApplicationController
     end
   end
 
-def tasks_for_kids
-  @tasks = Task.where.not(status: "着手中")
-end
-
+  def tasks_for_kids
+    # 現在ログインしているユーザー（親）が作成したタスクのみを取得
+    @tasks = Task.where(user_id: current_user.id).where.not(status: "着手中")
+  end
+  
   def rewards
     child_id = params[:child_id]
     @completed_tasks = Task.where(user_id: child_id, status: "完了")
@@ -52,13 +53,21 @@ end
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id # ここで親のIDを設定
     if @task.save
-      redirect_to @task, notice: 'タスクが正常に作成されました'
+      redirect_to dashboard_parents_path, notice: 'タスクが正常に作成されました'
     else
       render :new
     end
   end
   
+  def cancel_task
+    @task = Task.find(params[:id])
+    @task.update(status: "未着手", user_id: current_user.id)
+    redirect_back(fallback_location: tasks_path, notice: 'お手伝いがキャンセルされました')
+  end
+  
+
   def edit
     @task = Task.find(params[:id])
   end
@@ -87,5 +96,6 @@ end
 def set_task
 @task = Task.find(params[:id])
 end
+
 end
 

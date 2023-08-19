@@ -35,8 +35,9 @@ class ParentsController < ApplicationController
     sort_option = params[:sort]
   
     # 2. 取得した値に基づいて、@tasks のクエリを修正
-    tasks_query = Task.where(user_id: @children)
-  
+    tasks_query = Task.where(user_id: @children + [current_user.id])
+
+
     # 名前でのフィルタリング
     tasks_query = tasks_query.where("name LIKE ?", "%#{name_filter}%") if name_filter.present?
   
