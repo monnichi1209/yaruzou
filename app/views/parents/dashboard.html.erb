@@ -17,8 +17,9 @@
   <h3><%= data[:child].name %>のお手伝い</h3>
   <ul>
     <% data[:tasks].each do |task| %>
-      <li><%= task.name %> - <%= task.status %></li>
+      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>円</li> <!-- 各タスクの報酬を表示 -->
     <% end %>
+    <li>合計: <%= data[:total_reward] %>円</li> <!-- 各子供の報酬の合計を表示 -->
   </ul>
 <% end %>
 

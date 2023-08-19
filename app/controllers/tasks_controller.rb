@@ -38,6 +38,7 @@ class TasksController < ApplicationController
   def rewards
     child_id = params[:child_id]
     @completed_tasks = Task.where(user_id: child_id, status: "完了")
+    @total_reward = @completed_tasks.sum(:reward)
   end  
   
   def under_construction
