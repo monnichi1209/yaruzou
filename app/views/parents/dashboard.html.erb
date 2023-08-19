@@ -1,11 +1,15 @@
 <h1>保護者ダッシュボード</h1>
 
-<p>こちらは保護者のダッシュボードページです。</p>
-
+<%= link_to "お手伝いを追加", new_task_path %>
+<%= link_to "子どもを追加", new_child_parents_path %>
+<%= link_to "アカウント設定", edit_user_registration_path %>
 <h2>子ども一覧</h2>
 <ul>
   <% @children.each do |child| %>
-    <li><%= child.name %></li>
+    <li>
+      <%= link_to child.name, tasks_path(child_id: child.id) %>
+      <%= link_to "削除", destroy_child_parents_path(child.id), method: :delete, data: { confirm: "#{child.name}を削除しますか？" } %>
+    </li>
   <% end %>
 </ul>
 
@@ -18,44 +22,36 @@
   </ul>
 <% end %>
 
-<% @children.each do |child| %>
-  <%= link_to child.name, tasks_path(child_id: child.id) %>
-  <%= link_to "削除", destroy_child_parents_path(child.id), method: :delete, data: { confirm: "#{child.name}を削除しますか？" } %>
-<% end %>
-
-<%= link_to "子どもを追加", new_child_parents_path %>
-
+<h2>お手伝い一覧</h2>
 <%= form_tag(dashboard_parents_path, method: :get) do %>
-  <!-- フィルタリング -->
   お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
   状態: <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]) %>
-
-  <!-- ソート -->
   並べ替え: <%= select_tag :sort, options_for_select(["期限昇順", "期限降順", "報酬昇順", "報酬降順"], params[:sort]) %>
-
   <%= submit_tag "フィルタリング&ソート" %>
 <% end %>
 
-<h2>お手伝い一覧</h2>
 <table>
-  <!-- ヘッダー部分を表示 -->
   <thead>
-  <tr>
-    <th>お手伝い名</th>
-    <th>編集</th>
-    <th>削除</th>
-  </tr>
+    <tr>
+      <th>お手伝い名</th>
+      <th>状態</th>
+      <th>期限日</th>
+      <th>報酬</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.name %></td>
+        <td><%= task.status %></td>
+        <td><%= task.due_on %></td>
+        <td><%= task.reward %>円</td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to "お手伝いを追加", new_task_path %>
-<%= link_to "アカウント設定", edit_user_registration_path %>
 
