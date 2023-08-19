@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get 'new_child', to: 'parents#new_child'
       post 'create_child', to: 'parents#create_child'
       get 'dashboard'
+      delete 'destroy_child/:id', to: 'parents#destroy_child', as: 'destroy_child'
     end
   end
 

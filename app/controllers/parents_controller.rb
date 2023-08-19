@@ -20,6 +20,12 @@ class ParentsController < ApplicationController
     end
   end
 
+  def destroy_child
+    child = User.find(params[:id])
+    child.destroy
+    redirect_to dashboard_parents_path, notice: "#{child.name} を削除しました"
+  end
+
   def dashboard
     @children = current_user.children
   

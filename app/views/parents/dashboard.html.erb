@@ -18,12 +18,10 @@
   </ul>
 <% end %>
 
-
 <% @children.each do |child| %>
   <%= link_to child.name, tasks_path(child_id: child.id) %>
+  <%= link_to "削除", destroy_child_parents_path(child.id), method: :delete, data: { confirm: "#{child.name}を削除しますか？" } %>
 <% end %>
-
-
 
 <%= link_to "子どもを追加", new_child_parents_path %>
 
@@ -59,3 +57,5 @@
   </tbody>
 </table>
 <%= link_to "お手伝いを追加", new_task_path %>
+<%= link_to "アカウント設定", edit_user_registration_path %>
+
