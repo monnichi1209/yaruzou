@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user! 
+  before_action :ensure_child_belongs_to_current_user, only: [:rewards]
 
   def index
     if params[:child_id]

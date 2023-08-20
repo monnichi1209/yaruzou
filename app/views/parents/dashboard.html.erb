@@ -19,19 +19,18 @@
     <% data[:tasks].each do |task| %>
       <li><%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント</li> <!-- 各タスクの報酬を表示 -->
     <% end %>
-    <li>合計: <%= data[:total_reward] %>ポイント</li> <!-- 各子供の報酬の合計を表示 -->
+    <p>所持<%= data[:child].points %>ポイント</p>
   </ul>
 
   <!-- 子供ごとの交換商品取得一覧 -->
-    <h4><%= data[:child].name %>の交換商品</h4>
-<ul>
-  <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
-  <% exchanged_tasks.each do |task| %>
-    <li><%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %></li>
-  <% end %>
-</ul>
+  <h4><%= data[:child].name %>の交換商品</h4>
+  <ul>
+    <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
+    <% exchanged_tasks.each do |task| %>
+      <li><%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %></li>
+    <% end %>
+  </ul>
 <% end %>
-
 
 
 <%= form_tag(dashboard_parents_path, method: :get) do %>

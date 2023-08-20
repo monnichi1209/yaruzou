@@ -1,5 +1,6 @@
 <h2>あなたの役割を選択してください</h2>
 <%= link_to "保護者として進む", dashboard_parents_path %>
-<% if current_user.children.exists? %>
-  <%= link_to "子供として進む", tasks_path(child_id: current_user.children.first.id) %>
+
+<% current_user.children.each do |child| %>
+  <%= link_to "#{child.name}として進む", tasks_path(child_id: child.id) %>
 <% end %>
