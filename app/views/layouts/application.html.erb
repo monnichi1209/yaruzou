@@ -9,8 +9,8 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-
 <body>
+
 <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニューの追加 -->
     <nav class="side-menu">
@@ -56,5 +56,8 @@
 
   <%= yield %>
 </div>
+<footer>
+製作者 ぬまし
+</footer>
 </body>
 </html>
