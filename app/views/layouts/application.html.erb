@@ -24,6 +24,14 @@
     </nav>
   <% end %>
 
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
+      <%= raw msg %>
+    </div>
+  <% end %>
+<% end %>
+
   <div class="main-content">
   <% if user_signed_in? && !@is_role_selection %>
     <% if current_user.admin? %>
@@ -48,6 +56,5 @@
 
   <%= yield %>
 </div>
-
 </body>
 </html>

@@ -38,8 +38,6 @@ class TasksController < ApplicationController
     redirect_to tasks_path(child_id: child.id), notice: 'タスクが完了しました'
 end
 
-
-
   def tasks_for_kids
     # 現在ログインしているユーザー（親）が作成したタスクのみを取得
     @tasks = Task.where(user_id: current_user.id).where.not(status: "着手中")
@@ -49,6 +47,7 @@ end
     child_id = params[:child_id]
     @completed_tasks = Task.where(user_id: child_id, status: "完了")
     @total_reward = @completed_tasks.sum(:reward)
+    @exchanged_items = Task.where(user_id: params[:child_id], status: "交換済み")
   end  
   
   def under_construction
@@ -106,14 +105,14 @@ end
     child = User.find(params[:child_id]) # 子供のユーザー情報を取得
     child_points = child.points || 0
 
-    Rails.logger.debug("Child's points before exchange: #{child_points}") # 1. 変更前の値をログに出力
-
     if child_points >= required_points
       new_points = child_points - required_points
-      Rails.logger.debug("Child's points after exchange: #{new_points}") # 2. 変更後の値をログに出力
       
       # update_columnsを使用してバリデーションをスキップしpointsだけを更新
       child.update_columns(points: new_points)
+      
+      # 新しいタスクを "交換済み" ステータスで作成
+      Task.create(name: item, status: "交換済み", user_id: child.id, description: "#{item}を交換しました。")
 
       redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}を交換しました！"
     else

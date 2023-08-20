@@ -37,7 +37,7 @@ class ParentsController < ApplicationController
 
 
     # 名前でのフィルタリング
-    tasks_query = tasks_query.where("name LIKE ?", "%#{name_filter}%") if name_filter.present?
+    tasks_query = Task.where(user_id: @children + [current_user.id]).where.not(status: "交換済み")
   
     # 状態でのフィルタリング
     unless status_filter == "全て" || status_filter.blank?

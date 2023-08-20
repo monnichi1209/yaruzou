@@ -21,9 +21,6 @@
   </tbody>
 </table>
 
-<h2>完了したお手伝いの合計報酬</h2>
-<p><%= @total_reward %>ポイント</p>
-
 <h2>所持ポイント</h2>
 <p><%= User.find(params[:child_id]).points %>ポイント</p>
 
@@ -38,9 +35,9 @@
   </thead>
   <tbody>
     <tr>
-      <td>おかし</td>
+      <td>おやつ</td>
       <td>100ポイント</td>
-      <td><%= button_to '交換', exchange_reward_tasks_path(item: 'おかし', points: 100), method: :post %></td>
+      <td><%= button_to '交換', exchange_reward_tasks_path(item: 'おやつ', points: 100, child_id: params[:child_id]), method: :post %></td>
     </tr>
     <tr>
       <td>300円</td>
@@ -49,8 +46,28 @@
     </tr>
       <td>500円</td>
       <td>5000ポイント</td>
-      <td><%= button_to '交換', exchange_reward_tasks_path(item: '500円', points: 5000), method: :post %></td>
+      <td><%= button_to '交換', exchange_reward_tasks_path(item: '500円', points: 5000,child_id: params[:child_id]), method: :post %></td>
     </tr>
     <!-- 他のアイテムも同様に追加可能 -->
+  </tbody>
+</table>
+
+<h2>交換した商品</h2>
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>交換日時</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exchanged_items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.created_at.strftime('%Y-%m-%d (%a)') %></td>
+        <td><%= item.description %></td> <!-- 交換の詳細情報を表示 -->
+      </tr>
+    <% end %>
   </tbody>
 </table>
