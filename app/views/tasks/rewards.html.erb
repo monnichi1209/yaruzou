@@ -24,3 +24,33 @@
 <h2>完了したお手伝いの合計報酬</h2>
 <p><%= @total_reward %>ポイント</p>
 
+<h2>所持ポイント</h2>
+<p><%= User.find(params[:child_id]).points %>ポイント</p>
+
+<h2>交換できる報酬</h2>
+<table>
+  <thead>
+    <tr>
+      <th>アイテム名</th>
+      <th>必要ポイント</th>
+      <th>交換</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>おかし</td>
+      <td>100ポイント</td>
+      <td><%= button_to '交換', exchange_reward_tasks_path(item: 'おかし', points: 100), method: :post %></td>
+    </tr>
+    <tr>
+      <td>300円</td>
+      <td>3000ポイント</td>
+      <td><%= button_to '交換', exchange_reward_tasks_path(item: '300円', points: 3000, child_id: params[:child_id]), method: :post %></td>
+    </tr>
+      <td>500円</td>
+      <td>5000ポイント</td>
+      <td><%= button_to '交換', exchange_reward_tasks_path(item: '500円', points: 5000), method: :post %></td>
+    </tr>
+    <!-- 他のアイテムも同様に追加可能 -->
+  </tbody>
+</table>

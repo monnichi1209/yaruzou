@@ -25,12 +25,20 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.update(status: "完了")
     
-    current_user.points ||= 0
-    current_user.points += @task.reward # ポイントを加算
-    current_user.save
+    child = User.find(@task.user_id) # タスクのユーザー（子供）を取得
+    child.points ||= 0
+    child.points += @task.reward # 子供のポイントを加算
+    
+    if child.save(validate: false)
+        Rails.logger.debug("Child's points updated successfully to: #{child.points}")
+    else
+        Rails.logger.error("Error updating child's points: #{child.errors.full_messages.join(', ')}")
+    end
   
-    redirect_to tasks_path(child_id: current_user.id), notice: 'タスクが完了しました'
-  end
+    redirect_to tasks_path(child_id: child.id), notice: 'タスクが完了しました'
+end
+
+
 
   def tasks_for_kids
     # 現在ログインしているユーザー（親）が作成したタスクのみを取得
@@ -91,6 +99,28 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_back(fallback_location: dashboard_parents_path, notice: 'タスクが正常に削除されました')
   end
+
+  def exchange_reward
+    item = params[:item]
+    required_points = params[:points].to_i
+    child = User.find(params[:child_id]) # 子供のユーザー情報を取得
+    child_points = child.points || 0
+
+    Rails.logger.debug("Child's points before exchange: #{child_points}") # 1. 変更前の値をログに出力
+
+    if child_points >= required_points
+      new_points = child_points - required_points
+      Rails.logger.debug("Child's points after exchange: #{new_points}") # 2. 変更後の値をログに出力
+      
+      # update_columnsを使用してバリデーションをスキップしpointsだけを更新
+      child.update_columns(points: new_points)
+
+      redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}を交換しました！"
+    else
+      redirect_to rewards_tasks_path(child_id: child.id), alert: "ポイントが足りません。"
+    end
+end
+
   
 private
 
