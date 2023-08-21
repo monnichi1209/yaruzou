@@ -6,6 +6,11 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
@@ -23,11 +28,11 @@
   <!-- サイドメニューの追加 -->
     <nav class="side-menu">
       <ul>
-        <li><%= link_to "進行状況", tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "お手伝い", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "報酬", rewards_tasks_path(child_id: params[:child_id]) %></li>
-        <li><%# link_to "バッジ", "/tasks/badge" %></li>
-        <li><%# link_to "マニュアル", "/tasks/manual" %></li>
+        <li><%= link_to "おてつだいのすすみぐあい", tasks_path(child_id: params[:child_id]) %></li>
+        <li><%= link_to "きょうのおてつだい", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+        <li><%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
+        <li><%# link_to "おてつだいバッジ", "/tasks/badge" %></li>
+        <li><%# link_to "おてつだいどうが", "/tasks/manual" %></li>
       </ul>
     </nav>
   <% end %>
@@ -56,6 +61,17 @@
 
   <%= yield %>
 </div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
 </body>
 </html>
