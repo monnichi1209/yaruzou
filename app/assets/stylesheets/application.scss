@@ -51,6 +51,17 @@
   color: white;
 }
 
+/* サイドメニューが非表示の時用のクラス */
+.side-menu-hidden {
+  display: none;
+}
+
+/* サイドメニューが非表示の時のメインコンテンツのスタイル */
+.main-content-no-menu {
+  margin-left: 0;
+}
+
+
 .main-content {
   margin-left: 210px;
   padding: 20px;
