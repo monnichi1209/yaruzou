@@ -114,7 +114,7 @@ end
       
       # 新しいタスクを "交換済み" ステータスで作成
       Task.create(name: item, status: "交換済み", user_id: child.id, description: "#{item}を交換しました。")
-
+    
       redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}を交換しました！"
     else
       redirect_to rewards_tasks_path(child_id: child.id), alert: "ポイントが足りません。"

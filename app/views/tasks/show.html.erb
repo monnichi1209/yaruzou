@@ -1,10 +1,18 @@
-<h1><%= @task.name %></h1>
+<div class="container mt-5">
+  <h1 class="display-4 text-center mb-4"><%= @task.name %></h1>
 
-<p><strong>詳細:</strong> <%= @task.description %></p>
-<p><strong>状態:</strong> <%= @task.status %></p>
-<p><strong>期限:</strong> <%= @task.due_on %></p>
-<p><strong>報酬:</strong> <%= @task.reward %></p>
+  <div class="card mb-4">
+    <div class="card-body">
+      <p class="lead"><strong>詳細:</strong> <%= @task.description %></p>
+      <p class="lead"><strong>状態:</strong> <%= @task.status %></p>
+      <p class="lead"><strong>期限:</strong> <%= @task.due_on %></p>
+      <p class="lead"><strong>報酬:</strong> <%= @task.reward %>ポイント</p>
+    </div>
+  </div>
 
-<%= link_to '編集', edit_task_path(@task) %> |
-<%= link_to '削除', @task, method: :delete, data: { confirm: '本当に削除しますか？' } %> |
-<%= link_to '戻る', dashboard_parents_path %> |
+  <div class="d-flex justify-content-between">
+    <%= link_to '編集', edit_task_path(@task), class: "btn btn-warning" %>
+    <%= link_to '削除', @task, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+    <%= link_to '戻る', dashboard_parents_path, class: "btn btn-secondary" %>
+  </div>
+</div>
