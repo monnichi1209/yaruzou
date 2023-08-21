@@ -15,7 +15,7 @@
         <td><%= task.name %></td>
         <td><%= task.description %></td>
         <td><%= task.due_on %></td>
-        <td><%= task.reward %>円</td>
+        <td><%= task.reward %>ポイント</td>
         <td>
           <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put%>
         </td>

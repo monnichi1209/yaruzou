@@ -17,11 +17,21 @@
   <h3><%= data[:child].name %>のお手伝い</h3>
   <ul>
     <% data[:tasks].each do |task| %>
-      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>円</li> <!-- 各タスクの報酬を表示 -->
+      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント</li> <!-- 各タスクの報酬を表示 -->
     <% end %>
-    <li>合計: <%= data[:total_reward] %>円</li> <!-- 各子供の報酬の合計を表示 -->
+    <p>所持<%= data[:child].points %>ポイント</p>
+  </ul>
+
+  <!-- 子供ごとの交換商品取得一覧 -->
+  <h4><%= data[:child].name %>の交換商品</h4>
+  <ul>
+    <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
+    <% exchanged_tasks.each do |task| %>
+      <li><%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %></li>
+    <% end %>
   </ul>
 <% end %>
+
 
 <%= form_tag(dashboard_parents_path, method: :get) do %>
   お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
@@ -50,11 +60,36 @@
         <td><%= task.description %></td>
         <td><%= task.status %></td>
         <td><%= task.due_on %></td>
-        <td><%= task.reward %>円</td>
+        <td><%= task.reward %>ポイント</td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
       </tr>
     <% end %>
+  </tbody>
+</table>
+
+<h2>交換できる報酬</h2>
+<table>
+  <thead>
+    <tr>
+      <th>アイテム名</th>
+      <th>必要ポイント</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>おかし</td>
+      <td>100ポイント</td>
+    </tr>
+    <tr>
+      <td>300円</td>
+      <td>3000ポイント</td>
+    </tr>
+    <tr>
+      <td>500円</td>
+      <td>5000ポイント</td>
+    </tr>
+    <!-- 他のアイテムも同様に追加可能 -->
   </tbody>
 </table>
 

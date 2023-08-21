@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'manual', to: 'pages#under_construction'
       get 'badge', to: 'pages#under_construction'
       get 'parents_dashboard'
+      post 'exchange_reward'
     end
 
     member do
