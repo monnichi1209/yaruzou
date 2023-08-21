@@ -15,18 +15,17 @@
  */
 
 /* サイドメニューの基本スタイリング */
-/* サイドメニューの基本スタイリング */
 .side-menu {
   position: fixed;
-  background-color: #FFDAB9; /* 明るいオレンジ色の背景色に変更 */
+  background-color: #FFDAB9; /* 明るいオレンジ色の背景色 */
   left: 0px;
   font-weight: bold;
   top: 0;
   width: 200px;
   height: 100%;
   overflow-y: auto;
-  color: #4B0082; /* 深い紫色に変更 */
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2); /* 影を追加して立体感を出す */
+  color: #4B0082; /* 深い紫色 */
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
 .side-menu ul {
@@ -36,25 +35,37 @@
 
 .side-menu li {
   padding: 10px 15px;
-  border-bottom: 1px solid #FFB6C1; /* 明るいピンク色のボーダーに変更 */
+  border-bottom: 1px solid #FFB6C1; /* 明るいピンク色のボーダー */
   text-align: center;
   font-size: 20px;
-  transition: background-color 0.3s; /* ホバー時のアニメーションを追加 */
+  transition: background-color 0.3s;
 }
 
 .side-menu a {
-  color: #4B0082; /* 深い紫色に変更 */
+  color: #4B0082; /* 深い紫色 */
   text-decoration: none;
 }
 
 .side-menu a:hover {
-  background-color: #FFB6C1; /* 明るいピンク色に変更 */
-  color: white; /* ホバー時の文字色を白に変更 */
+  background-color: #FFB6C1; /* 明るいピンク色 */
+  color: white;
 }
 
 .main-content {
   margin-left: 210px;
-  padding: 20px; /* コンテンツの周りにパディングを追加 */
-  background-color: #FFF5EE; /* 明るいベージュ色の背景色に変更 */
-  transition: margin-left 0.3s; /* サイドメニューの表示・非表示時のアニメーションを追加 */
+  padding: 20px;
+  background-color: #FFF5EE; /* 明るいベージュ色の背景色 */
+  transition: margin-left 0.3s;
+}
+
+/* Bootstrapのボタンをカスタマイズ */
+.btn-custom {
+  background-color: #FFDAB9;
+  color: #4B0082;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #FFB6C1;
+  color: white;
 }

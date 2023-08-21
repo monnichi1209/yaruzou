@@ -6,10 +6,9 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -28,8 +27,8 @@
   <!-- サイドメニューの追加 -->
     <nav class="side-menu">
       <ul>
-        <li><%= link_to "おてつだいのすすみぐあい", tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "きょうのおてつだい", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+        <li><%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
+        <li><%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
         <li><%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
         <li><%# link_to "おてつだいバッジ", "/tasks/badge" %></li>
         <li><%# link_to "おてつだいどうが", "/tasks/manual" %></li>
@@ -58,7 +57,7 @@
       <% end %>
     <% end %>
   <% end %>
-
+ 
   <%= yield %>
 </div>
 
@@ -71,7 +70,8 @@
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 </body>
 </html>
