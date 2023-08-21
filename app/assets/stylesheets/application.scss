@@ -14,6 +14,13 @@
  *= require_self
  */
 
+@font-face {
+  font-family: 'MPLUS1p';
+  src: font-url('MPLUSRounded1c-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+  
 /* サイドメニューの基本スタイリング */
 .side-menu {
   position: fixed;
@@ -79,4 +86,85 @@
 .btn-custom:hover {
   background-color: #FFB6C1;
   color: white;
+}
+
+/* カードデザイン */
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 30px;
+  transition: transform 0.2s; /* ホバー時のアニメーションを追加 */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* ホバー時に少し上に浮かせる */
+}
+
+.card h3, .card h4 {
+  border-bottom: 3px solid #FFDAB9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-size: 24px; /* タイトルの文字サイズを大きくする */
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0;
+  padding: 15px 20px; /* パディングを増やしてスペースを取る */
+  font-size: 18px; /* 文字のサイズを大きくする */
+  margin-bottom: 5px; /* 各項目の間にスペースを追加 */
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* タスクのステータスに応じた色の変更 */
+.list-group-item[data-status="未着手"] {
+  background-color: #89CFF0; /* 明るいブルー */
+}
+
+.list-group-item[data-status="着手中"] {
+  background-color: #FFA500; /* 明るいオレンジ */
+}
+
+.list-group-item[data-status="完了"] {
+  background-color: #32CD32; /* 明るいグリーン */
+}
+
+.list-group-item[data-status="交換済み"] {
+  background-color: #9370DB; /* 明るいパープル */
+}
+
+
+/* ポイント表示のスタイリング */
+.mb-3 {
+  font-weight: bold;
+  font-size: 20px; /* ポイント表示の文字サイズを大きくする */
+  color: #4B0082;
+  margin-top: 15px; /* 上部にスペースを追加 */
+}
+/* ... (既存のスタイル) ... */
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.points-badge {
+  background-color: #4B0082; /* 深い紫色 */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px; /* バッジの丸み */
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して立体感を出す */
+}
+
+body {
+  font-family: 'MPLUS1p', sans-serif;
 }

@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Yaruzou</title>
+  <title>やるゾウ</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-<body>
+<body style="font-size: 18px; background-color: #FFF5EE;">
 
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
@@ -26,36 +32,41 @@
 <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニューの追加 -->
     <nav class="side-menu">
-      <ul>
-        <li><%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
-        <li><%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
-      </ul>
-    </nav>
-  <% end %>
+    <ul>
+      <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
+    </ul>
+  </nav>
+<% end %>
 
-  <div class="main-content">
-  <% if user_signed_in? && !@is_role_selection %>
-    <% if current_user.admin? %>
-      <%= link_to '管理者ページ', rails_admin.dashboard_path %>
-    <% else %>
-      <% if controller_name == "parents" && action_name == "dashboard" %>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <div class="main-content d-flex justify-content-end">
+  <div>
+    <% if user_signed_in? && !@is_role_selection %>
+      <% if current_user.admin? %>
+        <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3" %>
       <% else %>
-        <% children = current_user.children %>
-        <select id="child-switcher">
-          <% children.each do |child| %>
-            <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
-              <%= child.name %>
-            </option>
-          <% end %>
-        </select>
-        <%= link_to "保護者", dashboard_parents_path %>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <% if controller_name == "parents" && action_name == "dashboard" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3" %>
+        <% else %>
+          <% children = current_user.children %>
+          <select id="child-switcher" class="mr-3">
+            <% children.each do |child| %>
+              <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
+                <%= child.name %>
+              </option>
+            <% end %>
+          </select>
+          <%= link_to "保護者", dashboard_parents_path, class: "mr-3" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3" %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
- 
+  </div>
+</div>
+
+
+
   <%= yield %>
 </div>
 
@@ -67,9 +78,6 @@
 
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- Vue.js -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 </body>
 </html>

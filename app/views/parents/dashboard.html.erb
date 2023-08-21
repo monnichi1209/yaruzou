@@ -18,22 +18,33 @@
   </ul>
 
   <% @children_with_tasks.each do |data| %>
-    <h3 class="mb-2"><%= data[:child].name %>のお手伝い</h3>
+  <div class="card">
+    <div class="header-section">
+      <h3 class="mb-2"><%= data[:child].name %>のお手伝い</h3>
+      <span class="points-badge">所持<%= data[:child].points %>ポイント</span>
+    </div>
+    
     <ul class="list-group mb-3">
       <% data[:tasks].each do |task| %>
-        <li class="list-group-item"><%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント</li>
+        <li class="list-group-item" data-status="<%= task.status %>">
+          <%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント
+        </li>
       <% end %>
     </ul>
-    <p class="mb-3">所持<%= data[:child].points %>ポイント</p>
 
-    <h4 class="mb-2"><%= data[:child].name %>の交換商品</h4>
-    <ul class="list-group mb-4">
-      <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
-      <% exchanged_tasks.each do |task| %>
-        <li class="list-group-item"><%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %></li>
-      <% end %>
-    </ul>
+    <h4>ごほうび</h4>
+<ul class="list-group mb-4">
+  <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
+  <% exchanged_tasks.each do |task| %>
+    <li class="list-group-item" data-status="交換済み">
+      <%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %>
+    </li>
   <% end %>
+</ul>
+</div>
+<% end %>
+
+
 
   <div class="mb-4">
     <%= form_tag(dashboard_parents_path, method: :get, class: "form-inline") do %>
