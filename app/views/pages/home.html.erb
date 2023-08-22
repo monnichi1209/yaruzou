@@ -12,6 +12,12 @@
     <%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary btn-lg" %>
   </div>
 
+  <div id="vue-intro" class="mt-5 text-center">
+    <p>{{ dynamicMessage }}</p>
+    <button @click="changeMessage" class="btn btn-info">メッセージを変更</button>
+</div>
+
+
 <div class="container mt-5">
   <!-- 特徴セクション -->
   <div class="row mb-5">
@@ -73,3 +79,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_pack_tag 'home_vue' %>

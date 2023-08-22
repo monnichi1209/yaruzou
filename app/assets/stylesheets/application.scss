@@ -14,32 +14,39 @@
  *= require_self
  */
 
-@font-face {
-  font-family: 'MPLUS1p';
-  src: font-url('MPLUSRounded1c-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+/* Variables */
+:root {
+  --primary-color: #FFDAB9;
+  --secondary-color: #4B0082;
+  --alert-color: #FFB6C1;
+  --font-primary: 'MPLUS1p', sans-serif;
 }
 
-/* application.css or another appropriate stylesheet */
+/* Global Styles */
+body {
+  font-family: var(--font-primary);
+}
 
 .alert {
-  position: relative; /* Ensure the alert has a position property */
-  z-index: 1000; /* Set a high z-index value */
+  position: relative;
+  z-index: 1000;
+  padding: 10px 15px;
+  margin-bottom: 0;
+  line-height: 1.5;
 }
 
-  
-/* サイドメニューの基本スタイリング */
+
+
+/* Side Menu Styles */
 .side-menu {
   position: fixed;
-  background-color: #FFDAB9; /* 明るいオレンジ色の背景色 */
-  left: 0px;
-  font-weight: bold;
+  background-color: var(--primary-color);
+  left: 0;
   top: 0;
   width: 200px;
   height: 100%;
   overflow-y: auto;
-  color: #4B0082; /* 深い紫色 */
+  color: var(--secondary-color);
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -50,113 +57,110 @@
 
 .side-menu li {
   padding: 10px 15px;
-  border-bottom: 1px solid #FFB6C1; /* 明るいピンク色のボーダー */
+  border-bottom: 1px solid var(--alert-color);
   text-align: center;
   font-size: 20px;
   transition: background-color 0.3s;
 }
 
 .side-menu a {
-  color: #4B0082; /* 深い紫色 */
+  color: var(--secondary-color);
   text-decoration: none;
 }
 
 .side-menu a:hover {
-  background-color: #FFB6C1; /* 明るいピンク色 */
+  background-color: var(--alert-color);
   color: white;
 }
 
-/* サイドメニューが非表示の時用のクラス */
 .side-menu-hidden {
   display: none;
 }
 
-/* サイドメニューが非表示の時のメインコンテンツのスタイル */
+/* Main Content Styles */
+.main-content {
+  margin-left: 210px;
+  padding: 20px;
+  background-color: #FFF5EE;
+  transition: margin-left 0.3s;
+}
+
 .main-content-no-menu {
   margin-left: 0;
 }
 
-
-.main-content {
-  margin-left: 210px;
-  padding: 20px;
-  background-color: #FFF5EE; /* 明るいベージュ色の背景色 */
-  transition: margin-left 0.3s;
-}
-
-/* Bootstrapのボタンをカスタマイズ */
+/* Button Styles */
 .btn-custom {
-  background-color: #FFDAB9;
-  color: #4B0082;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   border: none;
 }
 
 .btn-custom:hover {
-  background-color: #FFB6C1;
+  background-color: var(--alert-color);
   color: white;
 }
 
-/* カードデザイン */
+/* Card Styles */
 .card {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 25px;
   margin-bottom: 30px;
-  transition: transform 0.2s; /* ホバー時のアニメーションを追加 */
+  transition: transform 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px); /* ホバー時に少し上に浮かせる */
+  transform: translateY(-5px);
 }
 
 .card h3, .card h4 {
-  border-bottom: 3px solid #FFDAB9;
+  border-bottom: 3px solid var(--primary-color);
   padding-bottom: 12px;
   margin-bottom: 20px;
-  font-size: 24px; /* タイトルの文字サイズを大きくする */
+  font-size: 24px;
 }
 
+/* List Group Styles */
 .list-group-item {
   border: none;
   border-bottom: 1px solid #e0e0e0;
-  border-radius: 0;
-  padding: 15px 20px; /* パディングを増やしてスペースを取る */
-  font-size: 18px; /* 文字のサイズを大きくする */
-  margin-bottom: 5px; /* 各項目の間にスペースを追加 */
+  padding: 15px 20px;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .list-group-item:last-child {
   border-bottom: none;
 }
 
-/* タスクのステータスに応じた色の変更 */
+/* Task Status Colors */
 .list-group-item[data-status="未着手"] {
-  background-color: #89CFF0; /* 明るいブルー */
+  background-color: #89CFF0;
 }
 
 .list-group-item[data-status="着手中"] {
-  background-color: #FFA500; /* 明るいオレンジ */
+  background-color: #FFA500;
 }
 
 .list-group-item[data-status="完了"] {
-  background-color: #32CD32; /* 明るいグリーン */
+  background-color: #32CD32;
 }
 
 .list-group-item[data-status="交換済み"] {
-  background-color: #9370DB; /* 明るいパープル */
+  background-color: #9370DB;
 }
 
-
-/* ポイント表示のスタイリング */
+/* Point Display Styles */
 .mb-3 {
   font-weight: bold;
-  font-size: 20px; /* ポイント表示の文字サイズを大きくする */
-  color: #4B0082;
-  margin-top: 15px; /* 上部にスペースを追加 */
+  font-size: 20px;
+  color: var(--secondary-color);
+  margin-top: 15px;
 }
-/* ... (既存のスタイル) ... */
 
+/* Header Styles */
 .header-section {
   display: flex;
   justify-content: space-between;
@@ -164,22 +168,19 @@
 }
 
 .points-badge {
-  background-color: #4B0082; /* 深い紫色 */
+  background-color: var(--secondary-color);
   color: white;
   padding: 5px 10px;
-  border-radius: 20px; /* バッジの丸み */
+  border-radius: 20px;
   font-weight: bold;
   font-size: 18px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して立体感を出す */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.alert {
-  padding: 10px 15px; /* 上下のパディングを10pxに設定 */
-  margin-bottom: 0;   /* 下部のマージンを0に設定 */
-  line-height: 1.5;   /* テキストの行の高さを調整 */
+/* Font Styles */
+@font-face {
+  font-family: 'MPLUS1p';
+  src: font-url('MPLUSRounded1c-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-
-body {
-  font-family: 'MPLUS1p', sans-serif;
-}
-

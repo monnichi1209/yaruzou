@@ -61,8 +61,8 @@
   <!-- サイドメニュー -->
     <nav class="side-menu">
     <ul>
+    <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
       <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
-      <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
       <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
     </ul>
   </nav>
