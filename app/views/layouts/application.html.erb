@@ -19,35 +19,24 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-<body style="font-size: 18px; background-color: #FFF5EE;">
 
-<% flash.each do |name, msg| %>
-  <% if msg.is_a?(String) %>
-    <div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
-      <%= raw msg %>
-    </div>
+<div class="header d-flex justify-content-end align-items-center" style="background-color: #4B0082; height: 60px; padding: 0 20px;">
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <div class="alert alert-<%= name == :notice ? "success" : "danger" %> mr-3">
+        <%= raw msg %>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
-  <!-- サイドメニューの追加 -->
-    <nav class="side-menu">
-    <ul>
-      <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
-      <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
-      <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
-    </ul>
-  </nav>
-<% end %>
-
-  <div class="main-content d-flex justify-content-end">
   <div>
     <% if user_signed_in? && !@is_role_selection %>
       <% if current_user.admin? %>
-        <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3" %>
+        <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
       <% else %>
         <% if controller_name == "parents" && action_name == "dashboard" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
         <% else %>
           <% children = current_user.children %>
           <select id="child-switcher" class="mr-3">
@@ -57,8 +46,8 @@
               </option>
             <% end %>
           </select>
-          <%= link_to "保護者", dashboard_parents_path, class: "mr-3" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3" %>
+          <%= link_to "保護者", dashboard_parents_path, class: "mr-3 text-white" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
         <% end %>
       <% end %>
     <% end %>
@@ -66,6 +55,18 @@
 </div>
 
 
+<body style="font-size: 18px; background-color: #FFF5EE;">
+
+<% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
+  <!-- サイドメニュー -->
+    <nav class="side-menu">
+    <ul>
+      <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
+    </ul>
+  </nav>
+<% end %>
 
   <%= yield %>
 </div>

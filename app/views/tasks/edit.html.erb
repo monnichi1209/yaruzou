@@ -1,5 +1,9 @@
-<h1><%= @task.name %>を編集</h1>
+<div class="container mt-5">
+  <h1 class="mb-4"><%= @task.name %>を編集</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'キャンセル', @task %>
+  <div class="mt-3">
+    <%= link_to 'キャンセル', @task, class: "btn btn-secondary" %>
+  </div>
+</div>

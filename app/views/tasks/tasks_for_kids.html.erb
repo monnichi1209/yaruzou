@@ -1,13 +1,13 @@
 <div class="container mt-5">
-  <h1 class="display-4 text-center mb-4">お手伝い一覧</h1>
+  <h1 class="display-4 text-center mb-4">おてつだいえらんでね</h1>
 
   <% if @tasks && @tasks.any? %>
     <table class="table table-bordered table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>タスク名</th>
-          <th>詳細</th>
-          <th>報酬</th>
+          <th>おてつだい</th>
+          <th>ママからのおねがい</th>
+          <th>もらえるポイント</th>
           <th>アクション</th> 
         </tr>
       </thead>
@@ -18,7 +18,7 @@
             <td><%= task.description %></td>
             <td><%= task.reward %>ポイント</td>
             <td>
-              <%= button_to "このお手伝いをする！", choose_task_path(task, child_id: params[:child_id]), method: :put, class: "btn btn-primary" %>
+              <%= button_to "これをする！", choose_task_path(task, child_id: params[:child_id]), method: :put, class: "btn btn-primary" %>
             </td>
           </tr>
         <% end %>

@@ -20,6 +20,14 @@
   font-weight: normal;
   font-style: normal;
 }
+
+/* application.css or another appropriate stylesheet */
+
+.alert {
+  position: relative; /* Ensure the alert has a position property */
+  z-index: 1000; /* Set a high z-index value */
+}
+
   
 /* サイドメニューの基本スタイリング */
 .side-menu {
@@ -165,6 +173,13 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加して立体感を出す */
 }
 
+.alert {
+  padding: 10px 15px; /* 上下のパディングを10pxに設定 */
+  margin-bottom: 0;   /* 下部のマージンを0に設定 */
+  line-height: 1.5;   /* テキストの行の高さを調整 */
+}
+
 body {
   font-family: 'MPLUS1p', sans-serif;
 }
+

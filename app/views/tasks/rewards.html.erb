@@ -1,21 +1,25 @@
 <div class="container mt-5">
-  <h1 class="display-4 text-center mb-4">報酬ページ</h1>
+  <div class="header-section d-flex justify-content-between align-items-center">
+    <h1 class="display-4 mb-4">ごほうび</h1>
+    <span class="points-badge">もってるポイント<%= User.find(params[:child_id]).points %>ポイント</span>
+  </div>
 
-  <h2 class="mb-3">完了したタスク</h2>
+  <h2 class="mb-3">おわったおてつだい</h2>
+  
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
       <tr>
-        <th>タスク名</th>
-        <th>状態</th>
-        <th>期限</th>
-        <th>報酬</th>
+        <th>おてつだい</th>
+        <th>いつまでにやるの？</th>
+        <th>もらったポイント</th>
       </tr>
     </thead>
+    <!-- ... 以下のコード ... -->
+
     <tbody>
       <% @completed_tasks.each do |task| %>
         <tr>
           <td><%= task.name %></td>
-          <td><%= task.status %></td>
           <td><%= task.due_on %></td>
           <td><%= task.reward %>ポイント</td>
         </tr>
@@ -23,46 +27,43 @@
     </tbody>
   </table>
 
-  <h2 class="mt-5 mb-3">所持ポイント</h2>
-  <p class="lead"><%= User.find(params[:child_id]).points %>ポイント</p>
-
-  <h2 class="mt-5 mb-3">交換できる報酬</h2>
+  <h2 class="mt-5 mb-3">ごほうびえらんでね</h2>
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
       <tr>
-        <th>アイテム名</th>
-        <th>必要ポイント</th>
-        <th>交換</th>
+        <th>ごほうび</th>
+        <th>ひつようなポイント</th>
+        <th>こうかん</th>
       </tr>
     </thead>
     <tbody>
-      <!-- 以下のアイテムはサンプルです -->
+
       <tr>
         <td>おやつ</td>
         <td>100ポイント</td>
-        <td><%= button_to '交換', exchange_reward_tasks_path(item: 'おやつ', points: 100, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
+        <td><%= button_to 'こうかん', exchange_reward_tasks_path(item: 'おやつ', points: 100, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
       </tr>
       <tr>
         <td>300円</td>
         <td>3000ポイント</td>
-        <td><%= button_to '交換', exchange_reward_tasks_path(item: '300円', points: 3000, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
+        <td><%= button_to 'こうかん', exchange_reward_tasks_path(item: '300円', points: 3000, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
       </tr>
       <tr>
         <td>500円</td>
         <td>5000ポイント</td>
-        <td><%= button_to '交換', exchange_reward_tasks_path(item: '500円', points: 5000, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
+        <td><%= button_to 'こうかん', exchange_reward_tasks_path(item: '500円', points: 5000, child_id: params[:child_id]), method: :post, class: "btn btn-primary btn-sm" %></td>
       </tr>
       <!-- 他のアイテムも同様に追加可能 -->
     </tbody>
   </table>
 
-  <h2 class="mt-5 mb-3">交換した商品</h2>
+  <h2 class="mt-5 mb-3">もらったごほうび</h2>
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
       <tr>
-        <th>商品名</th>
-        <th>交換日時</th>
-        <th>詳細</th>
+        <th>ごほうび</th>
+        <th>いつもらったか？</th>
+        <th>おあかさんからコメント</th>
       </tr>
     </thead>
     <tbody>

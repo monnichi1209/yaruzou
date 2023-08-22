@@ -44,8 +44,6 @@
 </div>
 <% end %>
 
-
-
   <div class="mb-4">
     <%= form_tag(dashboard_parents_path, method: :get, class: "form-inline") do %>
       <div class="form-group mr-2">
@@ -84,7 +82,7 @@
           <td><%= task.description %></td>
           <td><%= task.status %></td>
           <td><%= task.due_on %></td>
-          <td><%= task.reward %>ポイント</td>
+          <td><%= task.reward %>P</td>
           <td><%= link_to '編集', edit_task_path(task), class: "btn btn-warning btn-sm" %></td>
           <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %></td>
         </tr>
