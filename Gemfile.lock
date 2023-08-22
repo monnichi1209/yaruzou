@@ -350,6 +350,7 @@ DEPENDENCIES
   factory_bot_rails
   jbuilder (~> 2.7)
   jquery-rails
+  kaminari
   letter_opener_web
   listen (~> 3.3)
   pg (~> 1.1)

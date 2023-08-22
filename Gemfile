@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
 
+gem 'kaminari'
 gem 'devise'
 gem 'devise-i18n'
 gem 'rails_admin'

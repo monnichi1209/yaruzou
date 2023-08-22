@@ -5,12 +5,12 @@ class TasksController < ApplicationController
 
   def index
     if params[:child_id]
-      @tasks = Task.where(user_id: params[:child_id], status: "着手中")
-      Rails.logger.debug("Tasks for child_id #{params[:child_id]}: #{@tasks.inspect}")
+      @tasks = Task.where(user_id: params[:child_id], status: "着手中").page(params[:page]).per(5)
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(5)
     end
-  end  
+  end
+  
 
   def choose
     task = Task.find(params[:id])

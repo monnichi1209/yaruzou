@@ -59,7 +59,7 @@ class ParentsController < ApplicationController
       tasks_query = tasks_query.order(reward: :desc)
     end
   
-    @tasks = tasks_query
+    @tasks = tasks_query.page(params[:page]).per(5)
   
     @children_with_tasks = @children.map do |child|
       tasks = Task.where(user_id: child.id, status: ["着手中", "完了"])
