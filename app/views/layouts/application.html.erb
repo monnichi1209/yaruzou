@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <!-- Bootstrap CSS -->
+  Bootstrap CSS 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   
   <!-- FontAwesome for icons -->
@@ -53,6 +53,8 @@
 
 <body style="font-size: 18px; background-color: #FFF5EE;">
 
+<div class="main-content" style="padding-bottom: 80px;"> <!-- 追加したdivタグ -->
+
 <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニュー -->
     <nav class="side-menu">
@@ -65,6 +67,7 @@
 <% end %>
 
   <%= yield %>
+</div>
 </div>
 
 <div class="footer text-center py-3" style="background-color: #4B0082; color: white; position: fixed; bottom: 0; width: 100%;">
