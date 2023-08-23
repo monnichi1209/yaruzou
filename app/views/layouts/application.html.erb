@@ -29,9 +29,6 @@
 
   <div>
     <% if user_signed_in? && !@is_role_selection %>
-      <% if current_user.admin? %>
-        <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
-      <% else %>
         <% if controller_name == "parents" && action_name == "dashboard" %>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
         <% else %>
@@ -47,7 +44,6 @@
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
         <% end %>
       <% end %>
-    <% end %>
   </div>
 </div>
 
