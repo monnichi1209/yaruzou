@@ -9,6 +9,7 @@ RailsAdmin.config do |config|
       redirect_to main_app.root_path, alert: '権限がありません'
     end
   end
+    
 
   ## == CancanCan ==
   # config.authorize_with :cancancan
