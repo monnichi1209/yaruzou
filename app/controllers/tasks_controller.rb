@@ -5,17 +5,17 @@ class TasksController < ApplicationController
 
   def index
     if params[:child_id]
-      @tasks = Task.where(user_id: params[:child_id], status: "着手中")
-      Rails.logger.debug("Tasks for child_id #{params[:child_id]}: #{@tasks.inspect}")
+      @tasks = Task.where(user_id: params[:child_id], status: "着手中").page(params[:page]).per(5)
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(5)
     end
-  end  
+  end
+  
 
   def choose
     task = Task.find(params[:id])
     if task.update(user_id: params[:child_id], status: "着手中")
-        redirect_to tasks_path(child_id: params[:child_id]), notice: "お手伝いを選びました！"
+        redirect_to tasks_path(child_id: params[:child_id]), notice: "おてつだいがんばってね！"
     else
         puts task.errors.full_messages # ここでエラーメッセージをログに出力
         redirect_to tasks_path(child_id: params[:child_id]), alert: "何らかのエラーが発生しました。"
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
         Rails.logger.error("Error updating child's points: #{child.errors.full_messages.join(', ')}")
     end
   
-    redirect_to tasks_path(child_id: child.id), notice: 'タスクが完了しました'
+    redirect_to tasks_path(child_id: child.id), notice: 'おてつだいありがとう！！'
 end
 
   def tasks_for_kids
@@ -68,7 +68,7 @@ end
     @task = Task.new(task_params)
     @task.user_id = current_user.id # ここで親のIDを設定
     if @task.save
-      redirect_to dashboard_parents_path, notice: 'タスクが正常に作成されました'
+      redirect_to dashboard_parents_path, notice: 'お手伝いが正常に作成されました'
     else
       render :new
     end
@@ -77,7 +77,7 @@ end
   def cancel_task
     @task = Task.find(params[:id])
     @task.update(status: "未着手", user_id: current_user.id)
-    redirect_back(fallback_location: tasks_path, notice: 'お手伝いがキャンセルされました')
+    redirect_back(fallback_location: tasks_path, notice: 'おてつだいをやめました。')
   end
   
   def edit
@@ -88,7 +88,7 @@ end
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to @task, notice: 'タスクが正常に更新されました'
+      redirect_to @task, notice: 'お手伝いが正常に更新されました'
     else
       render :edit
     end
@@ -97,7 +97,7 @@ end
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_back(fallback_location: dashboard_parents_path, notice: 'タスクが正常に削除されました')
+    redirect_back(fallback_location: dashboard_parents_path, notice: 'おてつだいが正常に削除されました')
   end
 
   def exchange_reward
@@ -113,11 +113,11 @@ end
       child.update_columns(points: new_points)
       
       # 新しいタスクを "交換済み" ステータスで作成
-      Task.create(name: item, status: "交換済み", user_id: child.id, description: "#{item}を交換しました。")
-
-      redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}を交換しました！"
+      Task.create(name: item, status: "交換済み", user_id: child.id, description: "#{item}とこうかんしました。")
+    
+      redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}をこうかんしました！"
     else
-      redirect_to rewards_tasks_path(child_id: child.id), alert: "ポイントが足りません。"
+      redirect_to rewards_tasks_path(child_id: child.id), alert: "ポイントがたりません。"
     end
 end
 

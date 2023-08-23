@@ -6,7 +6,7 @@ RailsAdmin.config do |config|
   ## == Devise ==
   config.authenticate_with do
     unless current_user && current_user.admin?
-      redirect_to main_app.root_path, '権限がありません'
+      redirect_to main_app.root_path, alert: '権限がありません'
     end
   end
 

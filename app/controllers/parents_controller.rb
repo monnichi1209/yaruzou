@@ -34,10 +34,13 @@ class ParentsController < ApplicationController
   
     # 2. 取得した値に基づいて、@tasks のクエリを修正
     tasks_query = Task.where(user_id: @children + [current_user.id])
-
-
+  
+    tasks_query = tasks_query.where.not(status: "交換済み")
+  
     # 名前でのフィルタリング
-    tasks_query = Task.where(user_id: @children + [current_user.id]).where.not(status: "交換済み")
+    if name_filter.present?
+      tasks_query = tasks_query.where("name LIKE ?", "%#{name_filter}%")
+    end
   
     # 状態でのフィルタリング
     unless status_filter == "全て" || status_filter.blank?
@@ -56,7 +59,7 @@ class ParentsController < ApplicationController
       tasks_query = tasks_query.order(reward: :desc)
     end
   
-    @tasks = tasks_query
+    @tasks = tasks_query.page(params[:page]).per(5)
   
     @children_with_tasks = @children.map do |child|
       tasks = Task.where(user_id: child.id, status: ["着手中", "完了"])
@@ -68,7 +71,8 @@ class ParentsController < ApplicationController
         total_reward: total_reward
       }
     end    
-  end  
+  end
+  
 
   private
 

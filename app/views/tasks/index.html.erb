@@ -1,29 +1,32 @@
-<h1>お手伝い進行状況</h1>
+<div class="container mt-5">
+  <h1 class="display-4 text-center mb-4">いまやってるおてつだい</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>タスク名</th>
-      <th>詳細</th>
-      <th>期限</th>
-      <th>報酬</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
       <tr>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= task.due_on %></td>
-        <td><%= task.reward %>ポイント</td>
-        <td>
-          <%= button_to "お手伝いが完了したよ", mark_complete_task_path(task), method: :put%>
-        </td>
-        <td>
-        <%= button_to "お手伝いをやめる", cancel_task_task_path(task), method: :put %>
-        </td>
+        <th>おてつだいのなまえ</th>
+        <th>ママからのおねがい</th>
+        <th>いつまでにやるの？</th>
+        <th>もらえるポイント</th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.due_on %></td>
+          <td><%= task.reward %>ポイント</td>
+          <td>
+            <%= button_to "おわった", mark_complete_task_path(task), method: :put, class: "btn btn-success btn-sm" %>
+          </td>
+          <td>
+            <%= button_to "やめる", cancel_task_task_path(task), method: :put, class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

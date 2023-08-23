@@ -1,28 +1,32 @@
-<h1>お手伝い一覧</h1>
+<div class="container mt-5">
+  <h1 class="display-4 text-center mb-4">おてつだいえらんでね</h1>
 
-<% if @tasks && @tasks.any? %>
-<table>
-  <thead>
-    <tr>
-      <th>タスク名</th>
-      <th>詳細</th>
-      <th>報酬</th>
-      <th>アクション</th> 
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= task.reward %>ポイント</td>
-        <td>
-        <%= button_to "このお手伝いをする！", choose_task_path(task, child_id: params[:child_id]), method: :put %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<% else %>
-  <p>お手伝いのタスクはありません。</p>
-<% end %>
+  <% if @tasks && @tasks.any? %>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>おてつだい</th>
+          <th>ママからのおねがい</th>
+          <th>もらえるポイント</th>
+          <th>アクション</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.reward %>ポイント</td>
+            <td>
+              <%= button_to "これをする！", choose_task_path(task, child_id: params[:child_id]), method: :put, class: "btn btn-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      お手伝いのタスクはありません。
+    </div>
+  <% end %>
+</div>

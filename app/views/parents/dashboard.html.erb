@@ -1,95 +1,118 @@
-<h1>保護者ダッシュボード</h1>
+<div class="container mt-5">
+  <h1 class="display-4 text-center mb-4">保護者ダッシュボード</h1>
 
-<%= link_to "お手伝いを追加", new_task_path %>
-<%= link_to "子どもを追加", new_child_parents_path %>
-<%= link_to "アカウント設定", edit_user_registration_path %>
-<h2>子ども一覧</h2>
-<ul>
-  <% @children.each do |child| %>
-    <li>
-      <%= link_to child.name, tasks_path(child_id: child.id) %>
-      <%= link_to "削除", destroy_child_parents_path(child.id), method: :delete, data: { confirm: "#{child.name}を削除しますか？" } %>
+  <div class="display-4 text-center mb-4">
+    <%= link_to "お手伝いを追加", new_task_path, class: "btn btn-primary mr-2" %>
+    <%= link_to "子どもを追加", new_child_parents_path, class: "btn btn-success mr-2" %>
+    <%= link_to "アカウント設定", edit_user_registration_path, class: "btn btn-info" %>
+  </div>
+
+  <h2 class="mb-3">子ども一覧</h2>
+  <ul class="list-group mb-4">
+    <% @children.each do |child| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to child.name, tasks_path(child_id: child.id), class: "mr-2" %>
+        <%= link_to "削除", destroy_child_parents_path(child.id), method: :delete, data: { confirm: "#{child.name}を削除しますか？" }, class: "btn btn-danger btn-sm" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% @children_with_tasks.each do |data| %>
+  <div class="card">
+    <div class="header-section" style="display: flex; align-items: center; justify-content: space-between;">
+      <h3 class="mb-2" style="margin-right: 10px;"><%= data[:child].name %>のお手伝い</h3>
+      <span class="points-badge">所持<%= data[:child].points %>ポイント</span>
+    </div>
+    
+    <ul class="list-group mb-3">
+      <% data[:tasks].each do |task| %>
+        <li class="list-group-item" data-status="<%= task.status %>">
+          <%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント
+        </li>
+      <% end %>
+    </ul>
+
+
+    <h4>ごほうび</h4>
+<ul class="list-group mb-4">
+  <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
+  <% exchanged_tasks.each do |task| %>
+    <li class="list-group-item" data-status="交換済み">
+      <%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %>
     </li>
   <% end %>
 </ul>
-
-<% @children_with_tasks.each do |data| %>
-  <h3><%= data[:child].name %>のお手伝い</h3>
-  <ul>
-    <% data[:tasks].each do |task| %>
-      <li><%= task.name %> - <%= task.status %> - <%= task.reward %>ポイント</li> <!-- 各タスクの報酬を表示 -->
-    <% end %>
-    <p>所持<%= data[:child].points %>ポイント</p>
-  </ul>
-
-  <!-- 子供ごとの交換商品取得一覧 -->
-  <h4><%= data[:child].name %>の交換商品</h4>
-  <ul>
-    <% exchanged_tasks = Task.where(user_id: data[:child].id, status: "交換済み") %>
-    <% exchanged_tasks.each do |task| %>
-      <li><%= task.description %> - <%= task.created_at.strftime('%Y-%m-%d (%a)') %></li>
-    <% end %>
-  </ul>
+</div>
 <% end %>
 
+  <div class="mb-4">
+    <%= form_tag(dashboard_parents_path, method: :get, class: "form-inline") do %>
+      <div class="form-group mr-2">
+        <%= label_tag :name_filter, "お手伝い名:", class: "mr-1" %>
+        <%= text_field_tag :name_filter, params[:name_filter], class: "form-control mr-2" %>
+      </div>
+      <div class="form-group mr-2">
+        <%= label_tag :status_filter, "状態:", class: "mr-1" %>
+        <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]), class: "form-control" %>
+      </div>
+      <div class="form-group mr-2">
+        <%= label_tag :sort, "並べ替え:", class: "mr-1" %>
+        <%= select_tag :sort, options_for_select(["期限昇順", "期限降順", "報酬昇順", "報酬降順"], params[:sort]), class: "form-control" %>
+      </div>
+      <%= submit_tag "フィルタリング&ソート", class: "btn btn-secondary" %>
+    <% end %>
+  </div>
 
-<%= form_tag(dashboard_parents_path, method: :get) do %>
-  お手伝い名: <%= text_field_tag :name_filter, params[:name_filter] %>
-  状態: <%= select_tag :status_filter, options_for_select(["全て", "未着手", "着手中", "完了"], params[:status_filter]) %>
-  並べ替え: <%= select_tag :sort, options_for_select(["期限昇順", "期限降順", "報酬昇順", "報酬降順"], params[:sort]) %>
-  <%= submit_tag "フィルタリング&ソート" %>
-<% end %>
-
-<h2>お手伝い一覧</h2>
-<table>
-  <thead>
-    <tr>
-      <th>お手伝い名</th>
-      <th>詳細</th>
-      <th>状態</th>
-      <th>期限日</th>
-      <th>報酬</th>
-      <th>編集</th>
-      <th>削除</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
+  <h2 class="mb-3">お手伝い一覧</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
       <tr>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= task.status %></td>
-        <td><%= task.due_on %></td>
-        <td><%= task.reward %>ポイント</td>
-        <td><%= link_to '編集', edit_task_path(task) %></td>
-        <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+        <th>お手伝い名</th>
+        <th>詳細</th>
+        <th>状態</th>
+        <th>期限日</th>
+        <th>報酬</th>
+        <th>編集</th>
+        <th>削除</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.status %></td>
+          <td><%= task.due_on %></td>
+          <td><%= task.reward %>P</td>
+          <td><%= link_to '編集', edit_task_path(task), class: "btn btn-warning btn-sm" %></td>
+          <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+    <%= paginate @tasks %>
 
-<h2>交換できる報酬</h2>
-<table>
-  <thead>
-    <tr>
-      <th>アイテム名</th>
-      <th>必要ポイント</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>おかし</td>
-      <td>100ポイント</td>
-    </tr>
-    <tr>
-      <td>300円</td>
-      <td>3000ポイント</td>
-    </tr>
-    <tr>
-      <td>500円</td>
-      <td>5000ポイント</td>
-    </tr>
-    <!-- 他のアイテムも同様に追加可能 -->
-  </tbody>
-</table>
-
+  <h2 class="mb-3">交換できる報酬</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>アイテム名</th>
+        <th>必要ポイント</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>おかし</td>
+        <td>100ポイント</td>
+      </tr>
+      <tr>
+        <td>300円</td>
+        <td>3000ポイント</td>
+      </tr>
+      <tr>
+        <td>500円</td>
+        <td>5000ポイント</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'badge', to: 'pages#under_construction'
       get 'parents_dashboard'
       post 'exchange_reward'
+      post 'reset_task'
     end
 
     member do
