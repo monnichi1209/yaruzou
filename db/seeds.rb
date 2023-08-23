@@ -51,7 +51,8 @@ users.each do |user|
       name: "Task #{i + 1} for #{user.name}",
       description: "This is a description for Task #{i + 1} owned by #{user.name}",
       due_on: due_dates.sample,
-      user_id: user.id  # ここでユーザーとの関連付けを行う
+      user_id: user.id,  # ここでユーザーとの関連付けを行う
+      reward: rand(100..5000)  # ポイント（reward）をランダムに設定する
     )
   end
 end

@@ -28,7 +28,8 @@ class TasksController < ApplicationController
     
     child = User.find(@task.user_id) # タスクのユーザー（子供）を取得
     child.points ||= 0
-    child.points += @task.reward # 子供のポイントを加算
+    reward_points = @task.reward || 0
+    child.points += reward_points # 子供のポイントを加算
     
     if child.save(validate: false)
         Rails.logger.debug("Child's points updated successfully to: #{child.points}")
