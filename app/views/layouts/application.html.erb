@@ -14,13 +14,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <style>
-    .footer {
-      height: 60px;
-    }
-  </style>
 </head>
-<body style="font-size: 18px; background-color: #FFF5EE;">
 
 <div class="header d-flex justify-content-end align-items-center" style="background-color: #4B0082; height: 60px; padding: 0 20px;">
   <% flash.each do |name, msg| %>
@@ -56,17 +50,19 @@
   </div>
 </div>
 
-<div class="main-content" style="margin-bottom: 60px;">
-  <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
-    <!-- サイドメニュー -->
+
+<body style="font-size: 18px; background-color: #FFF5EE;">
+
+<% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
+  <!-- サイドメニュー -->
     <nav class="side-menu">
-      <ul>
-        <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
-        <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
-        <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
-      </ul>
-    </nav>
-  <% end %>
+    <ul>
+    <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
+      <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
+    </ul>
+  </nav>
+<% end %>
 
   <%= yield %>
 </div>
