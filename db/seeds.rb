@@ -45,11 +45,13 @@ users = User.where.not(role: 0) # "こども"のroleを持たないユーザー�
 due_dates = [Date.today, Date.today + 1, Date.today + 7] # 今日、明日、来週の日付
 
 users.each do |user|
+  
   5.times do |i|
     Task.create(
       name: "Task #{i + 1} for #{user.name}",
       description: "This is a description for Task #{i + 1} owned by #{user.name}",
-      due_on: due_dates.sample # 3つの日付からランダムに選ぶ
+      due_on: due_dates.sample,
+      user_id: user.id  # ここでユーザーとの関連付けを行う
     )
   end
 end
