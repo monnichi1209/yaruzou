@@ -19,8 +19,8 @@
 
   <% @children_with_tasks.each do |data| %>
   <div class="card">
-    <div class="header-section">
-      <h3 class="mb-2"><%= data[:child].name %>のお手伝い</h3>
+    <div class="header-section" style="display: flex; align-items: center; justify-content: space-between;">
+      <h3 class="mb-2" style="margin-right: 10px;"><%= data[:child].name %>のお手伝い</h3>
       <span class="points-badge">所持<%= data[:child].points %>ポイント</span>
     </div>
     
@@ -31,6 +31,7 @@
         </li>
       <% end %>
     </ul>
+
 
     <h4>ごほうび</h4>
 <ul class="list-group mb-4">
@@ -89,7 +90,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= paginate @tasks %>
+    <%= paginate @tasks %>
 
   <h2 class="mb-3">交換できる報酬</h2>
   <table class="table table-bordered table-hover">

@@ -29,7 +29,6 @@ body {
 
 .alert {
   position: relative;
-  z-index: 1000;
   padding: 10px 15px;
   margin-bottom: 0;
   line-height: 1.5;
@@ -158,13 +157,6 @@ body {
   font-size: 20px;
   color: var(--secondary-color);
   margin-top: 15px;
-}
-
-/* Header Styles */
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .points-badge {
