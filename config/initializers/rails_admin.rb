@@ -1,6 +1,17 @@
 RailsAdmin.config do |config|
   config.asset_source = :webpacker
 
+  config.model 'FamilyLink' do
+    label '家族のリンク'
+    label_plural '家族のリンク'
+  end
+
+  config.model 'Task' do
+    label 'タスク'
+    label_plural 'タスク'
+  end
+
+
   ### Popular gems integration
 
   ## == Devise ==
