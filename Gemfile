@@ -28,8 +28,12 @@ gem 'unicorn' # アプリケーションサーバのunicorn
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'launchy'
   gem 'capistrano', '3.16.0' # capistranoのツール一式
     gem 'capistrano-bundler'
     gem 'capistrano-rails'

@@ -130,6 +130,8 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faker (3.2.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -326,6 +328,8 @@ GEM
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     spring (4.1.1)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -396,10 +400,12 @@ DEPENDENCIES
   dotenv-rails
   ed25519
   factory_bot_rails
+  faker
   jbuilder (~> 2.7)
   jquery-rails
   kaminari
   kaminari-bootstrap
+  launchy
   letter_opener_web
   listen (~> 3.3)
   pg (~> 1.1)
@@ -417,6 +423,7 @@ DEPENDENCIES
   selenium-webdriver (>= 4.0.0.rc1)
   simple_form
   spring
+  spring-commands-rspec
   turbolinks (~> 5)
   tzinfo-data
   unicorn
