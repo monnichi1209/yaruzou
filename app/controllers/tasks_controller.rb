@@ -46,11 +46,20 @@ end
   end
   
   def rewards
-    child_id = params[:child_id]
+    # child_id が提供されている場合はそれを使用し、提供されていない場合はデフォルトの子供を設定
+    child_id = params[:child_id] || current_user.children.first&.id
+  
+    # デフォルトの子供も存在しない場合はエラーメッセージを表示
+    unless child_id
+      redirect_to root_path, alert: "関連する子供が存在しません。"
+      return
+    end
+  
     @completed_tasks = Task.where(user_id: child_id, status: "完了")
     @total_reward = @completed_tasks.sum(:reward)
-    @exchanged_items = Task.where(user_id: params[:child_id], status: "交換済み")
-  end  
+    @exchanged_items = Task.where(user_id: child_id, status: "交換済み")
+  end
+  
   
   def under_construction
   end  
@@ -98,8 +107,9 @@ end
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_back(fallback_location: dashboard_parents_path, notice: 'おてつだいが正常に削除されました')
+    redirect_to dashboard_parents_path, notice: 'おてつだいが正常に削除されました'
   end
+  
 
   def exchange_reward
     item = params[:item]
