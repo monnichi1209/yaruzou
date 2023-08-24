@@ -28,7 +28,7 @@
 
   <div>
   <% unless @is_home_page %>
-    <% if user_signed_in? && !@is_role_selection %>
+    <% if user_signed_in?%>
       <% if current_user.admin? %>
         <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
       <% else %>
