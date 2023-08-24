@@ -27,6 +27,7 @@
   <% end %>
 
   <div>
+  <% unless @is_home_page %>
     <% if user_signed_in? && !@is_role_selection %>
       <% if current_user.admin? %>
         <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
@@ -47,12 +48,12 @@
         <% end %>
       <% end %>
     <% end %>
+    <% end %>
   </div>
 </div>
 
 
 <body style="font-size: 18px; background-color: #FFF5EE;">
-
 <div class="main-content" style="padding-bottom: 80px;"> <!-- 追加したdivタグ -->
 
 <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>

@@ -6,22 +6,22 @@
 
     <div class="form-group">
       <%= f.label :name, "ユーザー名", class: "form-label" %>
-      <%= f.input_field :name, class: "form-control", required: true, autofocus: true %>
+      <%= f.input_field :name, class: "form-control", required: true, autofocus: true, placeholder: "ユーザー名を入力" %>
     </div>
 
     <div class="form-group">
       <%= f.label :email, class: "form-label" %>
-      <%= f.input_field :email, class: "form-control", required: true, autofocus: true, autocomplete: "email" %>
+      <%= f.input_field :email, class: "form-control", required: true, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力" %>
     </div>
 
     <div class="form-group">
       <%= f.label :email_confirmation, "Eメール（確認用）",  class: "form-label" %>
-      <%= f.input_field :email_confirmation, class: "form-control", required: true, autocomplete: "email" %>
+      <%= f.input_field :email_confirmation, class: "form-control", required: true, autocomplete: "email", placeholder: "メールアドレス（確認用）を入力" %>
     </div>
 
     <div class="form-group">
       <%= f.label :password, class: "form-label" %>
-      <%= f.input_field :password, class: "form-control", required: true, autocomplete: "new-password" %>
+      <%= f.input_field :password, class: "form-control", required: true, autocomplete: "new-password", placeholder: "パスワードを入力" %>
       <% if @minimum_password_length %>
         <small class="form-text text-muted">
           <%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %>
@@ -31,7 +31,7 @@
 
     <div class="form-group">
       <%= f.label :password_confirmation, class: "form-label" %>
-      <%= f.input_field :password_confirmation, class: "form-control", required: true, autocomplete: "new-password" %>
+      <%= f.input_field :password_confirmation, class: "form-control", required: true, autocomplete: "new-password", placeholder: "パスワード（確認用）を入力" %>
     </div>
 
     <div class="form-actions mt-3">

@@ -3,7 +3,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <%= f.label :name, "タスク名", class: "form-label" %>
-        <%= f.text_field :name, class: "form-control", required: "" %>
+        <%= f.text_field :name, class: "form-control", required: "", placeholder: "タスク名を入力" %>
         <div class="invalid-feedback">
           タスク名は必須です。
         </div>
@@ -11,7 +11,7 @@
 
       <div class="form-group col-md-6">
         <%= f.label :description, "詳細", class: "form-label" %>
-        <%= f.text_area :description, class: "form-control", rows: 5, required: "" %>
+        <%= f.text_area :description, class: "form-control", rows: 5, required: "", placeholder: "タスクの詳細を入力" %>
         <div class="invalid-feedback">
           詳細は必須です。
         </div>
