@@ -59,10 +59,6 @@ end
     @total_reward = @completed_tasks.sum(:reward)
     @exchanged_items = Task.where(user_id: child_id, status: "交換済み")
   end
-  
-  
-  def under_construction
-  end  
 
   def show
     @task = Task.find(params[:id])
