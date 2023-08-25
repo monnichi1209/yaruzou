@@ -4,9 +4,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     before do
       user = FactoryBot.create(:user)
       visit new_user_session_path
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'Submit'
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
     end
     
     context 'タスクを新規作成した場合' do
@@ -14,23 +14,19 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[name]', with: 'New Task'
         fill_in 'task[description]', with: 'New Task Content'
-        fill_in 'task[expired_at]', with: DateTime.now
-        select '未着手', from: 'task[status]' 
-        select '高', from: 'task[priority]' 
+        select '今日', from: 'task[due_on]'
         find('.actions input[type="submit"]').click
 
-        expect(current_path).to eq task_path(Task.last)
+        expect(current_path).to eq dashboard_parents_path
         expect(page).to have_content 'New Task'
         expect(page).to have_content 'New Task Content'
-        expect(page).to have_content '未着手' 
-        expect(page).to have_content '高'
       end
     end
   end
   
   describe '一覧表示機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user: user, priority: '低') }
+    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user: user) }
     let!(:task2) { FactoryBot.create(:task, name: 'task2', created_at: Time.now, user: user, priority: '高') }
 
     before do
@@ -111,8 +107,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         task1 = FactoryBot.create(:task, name: 'task1', status: '未着手')
         task2 = FactoryBot.create(:task, name: 'task2', status: '完了')
         visit tasks_path
-        fill_in 'name', with: 'task1'
-        click_on 'task_search'
+        fill_in 'task[name]', with: 'task1'
+        click_on 'Search'
         expect(page).to have_content 'task1'
       end
     end
@@ -120,8 +116,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'ステータスで検索した場合' do
       it '選択したステータスに該当するタスクが表示される' do
         visit tasks_path
-        select '完了', from: 'status'
-        click_on 'task_search'
+        select '完了', from: 'task[status]'
+        click_on 'Search'
         expect(page).to have_content '完了'
       end
     end
@@ -129,9 +125,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルとステータスの両方で検索した場合' do
       it '検索したタイトルと選択したステータスに該当するタスクが表示される' do
         visit tasks_path
-        fill_in 'name', with: 'task1'
+        fill_in 'task[name]', with: 'task1'
         select '未着手', from: 'status'
-        click_on 'task_search'
+        click_on 'Search'
         expect(page).to have_content '未着手'
       end
     end
