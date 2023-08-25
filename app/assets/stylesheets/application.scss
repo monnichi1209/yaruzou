@@ -183,3 +183,11 @@ body {
   font-style: normal;
 }
 
+@media (max-width: 768px) {
+  .side-menu {
+    width: 150px;
+  }
+  .main-content {
+    margin-left: 160px;  // 150px + 10pxの余白
+  }
+}
