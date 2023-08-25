@@ -89,6 +89,12 @@ end
   def edit
     @task = Task.find(params[:id])
     @hide_sidebar = true
+  
+    # 現在ログインしているユーザーがタスクの作成者でない場合
+    unless @task.user_id == current_user.id
+      redirect_to tasks_path, alert: 'アクセス権限がありません'
+      return
+    end
   end
 
   def update

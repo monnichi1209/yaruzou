@@ -72,6 +72,52 @@ RSpec.describe 'ユーザー管理機能', type: :system do
     end
   end
 
+  describe 'アクセス制限のテスト' do
+    let(:user1) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create(:task, user_id: user1.id) }
+  
+    context '他のユーザーのタスク編集ページにアクセスしようとした場合' do
+      it 'アクセス制限がかかり、編集ページにアクセスできない' do
+        # user1でログインしてタスクを作成
+        visit new_user_session_path
+        sleep(2)
+        fill_in 'Eメール', with: user1.email
+        sleep(2)
+        fill_in 'パスワード', with: user1.password
+        sleep(2)
+        click_button 'ログイン'
+        sleep(2)
+        visit new_task_path
+        sleep(2)
+        fill_in 'task[name]', with: 'User1 Task'
+        sleep(2)
+        fill_in 'task[description]', with: 'User1 Task Description'
+        sleep(2)
+        click_button '登録'
+        sleep(2)
+        click_link 'ログアウト'
+  
+        # user2でログイン
+        visit new_user_session_path
+        sleep(2)
+        fill_in 'Eメール', with: user2.email
+        sleep(2)
+        fill_in 'パスワード', with: user2.password
+        sleep(2)
+        click_button 'ログイン'
+  
+        # user1が作成したタスクの編集ページにアクセスしようとする
+        visit edit_task_path(task)
+        sleep(2)
+        expect(current_path).not_to eq edit_task_path(task) 
+        sleep(2)# 編集ページにアクセスできないことを確認
+        expect(page).to have_content 'アクセス権限がありません' # アクセス制限のメッセージが表示されることを確認（実際のメッセージに合わせてください）
+      end
+    end
+  end
+  
+
   describe 'セッション機能のテスト' do
     before do
       visit new_user_session_path
