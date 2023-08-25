@@ -8,6 +8,7 @@ gem 'kaminari-bootstrap'
 gem 'devise'
 gem 'devise-i18n'
 gem 'rails_admin'
+gem 'cancancan'
 gem 'rails-i18n', '~> 6.0' # Railsの基本的な日本語化のためのgem
 gem 'rails_admin-i18n' # rails_adminの日本語化のためのgem
 gem 'rexml'

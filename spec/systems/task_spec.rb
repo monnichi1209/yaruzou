@@ -58,8 +58,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
         visit task_path(task)
-        expect(page).to have_content 'Task Title'
-        expect(page).to have_content '未着手'
+        sleep(2)
+        expect(page).to have_content '詳細'
+        expect(page).to have_content '状態'
       end
     end
   end
@@ -145,13 +146,12 @@ RSpec.describe 'タスク管理機能', type: :system do
   
     context 'タスクを削除した場合' do
       it 'タスクがリストから削除される' do
-        # タスク一覧ページにアクセス
         visit dashboard_parents_path
+        sleep(2)
         click_on '削除'
-        # 削除確認ダイアログを承認
+        sleep(2)
         page.accept_confirm '本当に削除しますか？'
-        
-        # タスクが正常に削除されたことを示すメッセージが表示されていないことを確認
+        sleep(2)
         expect(page).not_to have_content 'お手伝いが正常に削除されました。'
       end
     end

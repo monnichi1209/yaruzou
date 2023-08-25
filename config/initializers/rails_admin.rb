@@ -11,19 +11,16 @@ RailsAdmin.config do |config|
     label_plural 'タスク'
   end
 
-
   ### Popular gems integration
 
   ## == Devise ==
   config.authenticate_with do
-    unless current_user && current_user.admin?
-      redirect_to main_app.root_path, alert: '権限がありません'
-    end
+    warden.authenticate! scope: :user
   end
-    
+  config.current_user_method(&:current_user)
 
   ## == CancanCan ==
-  # config.authorize_with :cancancan
+  config.authorize_with :cancancan
 
   ## == Pundit ==
   # config.authorize_with :pundit
