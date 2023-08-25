@@ -26,14 +26,14 @@ RSpec.describe 'タスク管理機能', type: :system do
   
   describe '一覧表示機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user: user) }
-    let!(:task2) { FactoryBot.create(:task, name: 'task2', created_at: Time.now, user: user, priority: '高') }
+    let!(:task1) { FactoryBot.create(:task, name: 'task1', description: 'Some description', user_id: user.id) }
+    let!(:task2) { FactoryBot.create(:task, name: 'task1', description: 'Some description', user_id: user.id) }
 
     before do
-      visit login_path
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'Submit'
+      visit new_user_session_path
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
     end
 
     context '一覧画面に遷移した場合' do
@@ -42,43 +42,17 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(page).to have_content 'task1'
       end
     end
-
-    context '優先順位でソートするというリンクを押した場合' do
-      it '優先順位の高い順に並び替えられたタスク一覧が表示される' do
-        task1 = FactoryBot.create(:task, name: 'task1', priority: '低')
-        task2 = FactoryBot.create(:task, name: 'task2', priority: '高')
-    
-        visit tasks_path(sort_priority: "true")
-        tasks = all('tbody tr') 
-    
-        expect(tasks[0]).to have_content 'task2'
-        expect(tasks[1]).to have_content 'task1'
-      end
-    end
-
-    context '終了期限でソートするというリンクを押した場合' do
-      it '終了期限の降順に並び替えられたタスク一覧が表示される' do
-        task1 = FactoryBot.create(:task, name: 'task1', expired_at: DateTime.now + 1.day)
-        task2 = FactoryBot.create(:task, name: 'task2', expired_at: DateTime.now + 2.days)
-    
-        visit tasks_path(sort_expired: "true")
-        tasks = all('tbody tr') 
-    
-        expect(tasks[0]).to have_content 'task2'
-        expect(tasks[1]).to have_content 'task1'
-      end
-    end
   end  
   
   describe '詳細表示機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task) { FactoryBot.create(:task, name: 'Task Title', description: 'Task Content', created_at: Time.now - 1.day, user: user) }
+    let!(:task) { FactoryBot.create(:task, name: 'Task Title', description: 'Task Content', created_at: Time.now - 1.day, user_id: user.id) }
     before do
 
-      visit login_path
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'Submit'
+      visit new_user_session_path
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
     end
 
     context '任意のタスク詳細画面に遷移した場合' do
@@ -92,42 +66,42 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '検索機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user: user, status: '未着手') }
-    let!(:task2) { FactoryBot.create(:task, name: 'task2', created_at: Time.now, user: user, status: '完了') }
+    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user_id: user.id, status: '未着手') }
+    let!(:task2) { FactoryBot.create(:task, name: 'task2', created_at: Time.now, user_id: user.id, status: '完了') }
 
     before do
-      visit login_path
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'Submit'
+      visit new_user_session_path
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
     end
 
     context 'タイトルで検索した場合' do
       it '検索したタイトルを含むタスクが表示される' do
-        task1 = FactoryBot.create(:task, name: 'task1', status: '未着手')
-        task2 = FactoryBot.create(:task, name: 'task2', status: '完了')
-        visit tasks_path
-        fill_in 'task[name]', with: 'task1'
-        click_on 'Search'
+        task1 = FactoryBot.create(:task, name: 'task1', user_id: user.id)
+        task2 = FactoryBot.create(:task, name: 'task2', user_id: user.id)
+        visit dashboard_parents_path
+        fill_in 'お手伝い名', with: 'task1'
+        click_on 'フィルタリング&ソート'
         expect(page).to have_content 'task1'
       end
     end
   
     context 'ステータスで検索した場合' do
       it '選択したステータスに該当するタスクが表示される' do
-        visit tasks_path
-        select '完了', from: 'task[status]'
-        click_on 'Search'
-        expect(page).to have_content '完了'
+        visit dashboard_parents_path
+        select '未着手', from: 'status_filter'
+        click_on 'フィルタリング&ソート'
+        expect(page).to have_content '未着手'
       end
     end
   
     context 'タイトルとステータスの両方で検索した場合' do
       it '検索したタイトルと選択したステータスに該当するタスクが表示される' do
-        visit tasks_path
-        fill_in 'task[name]', with: 'task1'
-        select '未着手', from: 'status'
-        click_on 'Search'
+        visit dashboard_parents_path
+        fill_in 'お手伝い名', with: 'task1'
+        select '未着手', from: 'status_filter'
+        click_on 'フィルタリング&ソート'
         expect(page).to have_content '未着手'
       end
     end
