@@ -28,30 +28,29 @@
 
   <div>
   <% unless @is_home_page %>
-    <% if user_signed_in?%>
+    <% if user_signed_in? %>
       <% if current_user.admin? %>
         <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
+      <% end %>
+
+      <% if controller_name == "parents" && action_name == "dashboard" %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
       <% else %>
-        <% if controller_name == "parents" && action_name == "dashboard" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
-        <% else %>
-          <% children = current_user.children %>
-          <select id="child-switcher" class="mr-3">
-            <% children.each do |child| %>
-              <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
-                <%= child.name %>
-              </option>
-            <% end %>
-          </select>
-          <%= link_to "保護者", dashboard_parents_path, class: "mr-3 text-white" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
-        <% end %>
+        <% children = current_user.children %>
+        <select id="child-switcher" class="mr-3">
+          <% children.each do |child| %>
+            <option value="<%= child.id %>" <%= "selected" if child.id == params[:child_id].to_i %>>
+              <%= child.name %>
+            </option>
+          <% end %>
+        </select>
+        <%= link_to "保護者", dashboard_parents_path, class: "mr-3 text-white" %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
       <% end %>
     <% end %>
-    <% end %>
-  </div>
+  <% end %>
 </div>
-
+</div>
 
 <body style="font-size: 18px; background-color: #FFF5EE;">
 <div class="main-content" style="padding-bottom: 80px;"> <!-- 追加したdivタグ -->
