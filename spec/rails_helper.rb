@@ -3,9 +3,6 @@ require 'spec_helper'
 require 'factory_bot_rails'
 require 'webdrivers'
 
-Webdrivers::Chromedriver.required_version = '116.0.5845.96'
-
-
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)

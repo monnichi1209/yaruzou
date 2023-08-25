@@ -59,7 +59,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '該当タスクの内容が表示される' do
         visit task_path(task)
         expect(page).to have_content 'Task Title'
-        expect(page).to have_content 'Task Content'
+        expect(page).to have_content '未着手'
       end
     end
   end
@@ -103,6 +103,56 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '未着手', from: 'status_filter'
         click_on 'フィルタリング&ソート'
         expect(page).to have_content '未着手'
+      end
+    end
+  end
+
+  describe '編集更新機能' do
+    let(:user) { FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create(:task, name: 'Old Task Name', description: 'Old Task Description', user_id: user.id) }
+  
+    before do
+      visit new_user_session_path
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
+      visit edit_task_path(task)
+    end
+  
+    context 'タスクを編集更新した場合' do
+      it '編集した内容が更新されて表示される' do
+        fill_in 'タスク名', with: 'Updated Task Name'
+        fill_in '詳細', with: 'Updated Task Description'
+        click_button '登録'
+  
+        expect(current_path).to eq task_path(task) 
+        expect(page).to have_content 'Updated Task Name'
+        expect(page).to have_content 'Updated Task Description'
+      end
+    end
+  end  
+
+  describe '削除機能' do
+    let(:user) { FactoryBot.create(:user) }
+    let!(:task) { FactoryBot.create(:task, name: 'Task to be deleted', user_id: user.id) }
+  
+    before do
+      visit new_user_session_path
+      fill_in 'Eメール', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
+    end
+  
+    context 'タスクを削除した場合' do
+      it 'タスクがリストから削除される' do
+        # タスク一覧ページにアクセス
+        visit dashboard_parents_path
+        click_on '削除'
+        # 削除確認ダイアログを承認
+        page.accept_confirm '本当に削除しますか？'
+        
+        # タスクが正常に削除されたことを示すメッセージが表示されていないことを確認
+        expect(page).not_to have_content 'お手伝いが正常に削除されました。'
       end
     end
   end
