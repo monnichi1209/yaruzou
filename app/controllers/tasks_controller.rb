@@ -77,6 +77,7 @@ end
       redirect_to dashboard_parents_path, notice: 'お手伝いが正常に作成されました'
     else
       flash.now[:alert] = @task.errors.full_messages.join(', ')
+      @hide_sidebar = true
       render :new
     end
   end
