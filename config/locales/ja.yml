@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    attributes:
+      task:
+        name: "名前"
+        description: "詳細"
+      user:
+        name: "名前"
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: "を入力してください。"
+            description:
+              blank: "を入力してください。"
+        user:
+          attributes:
+            name:
+              blank: "を入力してください。"
+            description:
+              blank: "を入力してください。"

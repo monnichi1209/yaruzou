@@ -14,6 +14,7 @@ class ParentsController < ApplicationController
       FamilyLink.create(parent: current_user, child: @child)
       redirect_to dashboard_parents_path, notice: "子どもを追加しました"
     else
+      flash.now[:alert] = "名前を入力して下さい。"
       render :new_child
     end
   end

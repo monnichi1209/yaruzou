@@ -3,16 +3,6 @@
 
   <%= form_for User.new, url: create_child_parents_path, html: { class: 'needs-validation', novalidate: '' } do |f| %>
 
-    <% if @child.errors.any? %>
-      <div class="alert alert-danger">
-        <ul>
-        <% @child.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="form-group">
       <%= f.label :name, "子どもの名前", class: "form-label" %>
       <%= f.text_field :name, class: "form-control", required: "", placeholder: "子どもの名前を入力" %>

@@ -76,6 +76,7 @@ end
     if @task.save
       redirect_to dashboard_parents_path, notice: 'お手伝いが正常に作成されました'
     else
+      flash.now[:alert] = @task.errors.full_messages.join(', ')
       render :new
     end
   end

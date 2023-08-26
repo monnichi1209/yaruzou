@@ -34,8 +34,6 @@ body {
   line-height: 1.5;
 }
 
-
-
 /* Side Menu Styles */
 .side-menu {
   position: fixed;
@@ -43,7 +41,7 @@ body {
   left: 0;
   top: 0;
   width: 200px;
-  height: 100%;
+  height: calc(100% - 60px);
   overflow-y: auto;
   color: var(--secondary-color);
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
@@ -65,11 +63,6 @@ body {
 .side-menu a {
   color: var(--secondary-color);
   text-decoration: none;
-}
-
-.side-menu a:hover {
-  background-color: var(--alert-color);
-  color: white;
 }
 
 .side-menu-hidden {
@@ -166,12 +159,20 @@ body {
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .footer {
   height: 60px;
+}
+
+.floating-effect {
+  transition: transform 0.3s ease-in-out;
+}
+
+.floating-effect:hover {
+  transform: translateY(-2px);
 }
 
 

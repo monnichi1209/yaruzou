@@ -16,7 +16,7 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<div class="header d-flex justify-content-end align-items-center" style="background-color: #4B0082; height: 60px; padding: 0 20px;">
+<div class="header fixed-top d-flex justify-content-end align-items-center" style="background-color: #4B0082; height: 60px; padding: 0 20px;">
   <% flash.each do |name, msg| %>
     <% if msg.is_a?(String) %>
       <div class="alert alert-<%= name == :notice ? "success" : "danger" %> mr-3">
@@ -57,13 +57,29 @@
 
 <% if user_signed_in? && !@is_guardian_page && !@is_role_selection && !@hide_sidebar %>
   <!-- サイドメニュー -->
-    <nav class="side-menu">
-    <ul>
-    <li><i class="fas fa-question-circle"></i> <%= link_to "どれにする？", tasks_for_kids_tasks_path(child_id: params[:child_id]) %></li>
-      <li><i class="fas fa-tasks"></i> <%= link_to "おてつだいなう", tasks_path(child_id: params[:child_id]) %></li>
-      <li><i class="fas fa-gift"></i> <%= link_to "ごほうび", rewards_tasks_path(child_id: params[:child_id]) %></li>
-    </ul>
-  </nav>
+<nav class="side-menu bg-primary p-3 rounded d-flex flex-column justify-content-center">
+  <ul class="list-group">
+    <%= link_to tasks_for_kids_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
+      <li class="list-group-item bg-info mb-2 rounded text-center py-5 card">
+        <i class="fas fa-question-circle text-white d-block mb-1"></i> どれにする？
+      </li>
+    <% end %>
+
+    <%= link_to tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
+      <li class="list-group-item bg-success mb-2 rounded text-center py-5 card">
+        <i class="fas fa-tasks text-white d-block mb-1"></i> おてつだい
+      </li>
+    <% end %>
+
+    <%= link_to rewards_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
+      <li class="list-group-item bg-warning mb-2 rounded text-center py-5 card">
+        <i class="fas fa-gift text-white d-block mb-1"></i> ごほうび
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
+  
 <% end %>
 
   <%= yield %>

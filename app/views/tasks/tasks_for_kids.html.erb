@@ -5,19 +5,19 @@
     <table class="table table-bordered table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>おてつだい</th>
-          <th>ママからのおねがい</th>
-          <th>もらえるポイント</th>
-          <th>アクション</th> 
+          <th class="text-center">おてつだい</th>
+          <th class="text-center">ママパパからのおねがい</th>
+          <th class="text-center">もらえるポイント</th>
+          <th class="text-center">アクション</th> 
         </tr>
       </thead>
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <td><%= task.name %></td>
-            <td><%= task.description %></td>
-            <td><%= task.reward %>ポイント</td>
-            <td>
+            <td class="text-center"><%= task.name %></td>
+            <td class="text-center"><%= task.description %></td>
+            <td class="text-center"><%= task.reward %>ポイント</td>
+            <td class="text-center">
               <%= button_to "これをする！", choose_task_path(task, child_id: params[:child_id]), method: :put, class: "btn btn-primary" %>
             </td>
           </tr>

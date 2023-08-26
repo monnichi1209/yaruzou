@@ -4,29 +4,30 @@
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
       <tr>
-        <th>おてつだいのなまえ</th>
-        <th>ママからのおねがい</th>
-        <th>いつまでにやるの？</th>
-        <th>もらえるポイント</th>
-        <th></th>
-        <th></th>
+        <th class="text-center">なまえ</th>
+        <th class="text-center">ママパパからのおねがい</th>
+        <th class="text-center"> いつまでに？</th>
+        <th class="text-center">ポイント</th>
+        <th class="text-center">😀</th>
+        <th class="text-center">😭</th>
       </tr>
     </thead>
     <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><%= task.name %></td>
-          <td><%= task.description %></td>
-          <td><%= task.due_on %></td>
-          <td><%= task.reward %>ポイント</td>
-          <td>
-            <%= button_to "おわった", mark_complete_task_path(task), method: :put, class: "btn btn-success btn-sm" %>
-          </td>
-          <td>
-            <%= button_to "やめる", cancel_task_task_path(task), method: :put, class: "btn btn-danger btn-sm" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td class="text-center"><%= task.name %></td>
+      <td class="text-center"><%= task.description %></td>
+      <td class="text-center"><%= task.due_on %></td>
+      <td class="text-center"><%= task.reward %>ポイント</td>
+      <td class="text-center">
+        <%= button_to "おわった", mark_complete_task_path(task), method: :put, class: "btn btn-success btn-sm" %>
+      </td>
+      <td class="text-center">
+        <%= button_to "やめる", cancel_task_task_path(task), method: :put, class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+
   </table>
 </div>
