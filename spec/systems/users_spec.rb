@@ -37,7 +37,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
     context '管理ユーザがログインした場合' do
       it 'ユーザの新規登録ができること' do
         visit '/admin/user/new'
-        fill_in 'Name', with: 'testuser'
+        fill_in '名前', with: 'testuser'
         fill_in 'Eメール', with: 'test@example.com'
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード（確認用）', with: 'password'

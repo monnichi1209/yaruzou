@@ -67,25 +67,25 @@
   <table class="table table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
-        <th>お手伝い名</th>
-        <th>詳細</th>
-        <th>状態</th>
-        <th>期限日</th>
-        <th>報酬</th>
-        <th>編集</th>
-        <th>削除</th>
+        <th class="text-center">お手伝い名</th>
+        <th class="text-center">詳細</th>
+        <th class="text-center">状態</th>
+        <th class="text-center">期限日</th>
+        <th class="text-center">報酬</th>
+        <th class="text-center">編集</th>
+        <th class="text-center">削除</th>
       </tr>
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
         <tr>
-          <td><%= task.name %></td>
-          <td><%= task.description %></td>
-          <td><%= task.status %></td>
-          <td><%= task.due_on %></td>
-          <td><%= task.reward %>P</td>
-          <td><%= link_to '編集', edit_task_path(task), class: "btn btn-warning btn-sm" %></td>
-          <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %></td>
+          <td class="text-center"><%= task.name %></td>
+          <td class="text-center"><%= task.description %></td>
+          <td class="text-center"><%= task.status %></td>
+          <td class="text-center"><%= task.due_on %></td>
+          <td class="text-center"><%= task.reward %>P</td>
+          <td class="text-center"><%= link_to '編集', edit_task_path(task), class: "btn btn-warning btn-sm" %></td>
+          <td class="text-center"><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -96,22 +96,22 @@
   <table class="table table-bordered table-hover">
     <thead class="thead-light">
       <tr>
-        <th>アイテム名</th>
-        <th>必要ポイント</th>
+        <th class="text-center">アイテム名</th>
+        <th class="text-center">必要ポイント</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>おかし</td>
-        <td>100ポイント</td>
+        <td class="text-center">おかし</td>
+        <td class="text-center">100ポイント</td>
       </tr>
       <tr>
-        <td>300円</td>
-        <td>3000ポイント</td>
+        <td class="text-center">300円</td>
+        <td class="text-center">3000ポイント</td>
       </tr>
       <tr>
-        <td>500円</td>
-        <td>5000ポイント</td>
+        <td class="text-center">500円</td>
+        <td class="text-center">5000ポイント</td>
       </tr>
     </tbody>
   </table>

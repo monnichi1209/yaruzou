@@ -61,19 +61,19 @@
   <ul class="list-group">
     <%= link_to tasks_for_kids_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
       <li class="list-group-item bg-info mb-2 rounded text-center py-5 card">
-        <i class="fas fa-question-circle text-white d-block mb-1"></i> どれにする？
+        <i class="fas fa-question-circle text-white d-block mb-1"></i> て<br>つ<br>だ<br>う
       </li>
     <% end %>
-
+<br>
     <%= link_to tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
       <li class="list-group-item bg-success mb-2 rounded text-center py-5 card">
-        <i class="fas fa-tasks text-white d-block mb-1"></i> おてつだい
+        <i class="fas fa-tasks text-white d-block mb-1"></i> や<br>っ<br>て<br>る
       </li>
     <% end %>
-
+<br>
     <%= link_to rewards_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
       <li class="list-group-item bg-warning mb-2 rounded text-center py-5 card">
-        <i class="fas fa-gift text-white d-block mb-1"></i> ごほうび
+        <i class="fas fa-gift text-white d-block mb-1"></i> ご<br>ほ<br>う<br>び
       </li>
     <% end %>
   </ul>
