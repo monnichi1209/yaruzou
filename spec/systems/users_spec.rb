@@ -5,7 +5,6 @@ RSpec.describe 'ユーザー管理機能', type: :system do
     Capybara.reset_sessions!
   end
 
-
   let(:user) { FactoryBot.create(:user) }
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:other_user) { FactoryBot.create(:user) }
@@ -28,12 +27,12 @@ RSpec.describe 'ユーザー管理機能', type: :system do
 
   describe '管理画面のテスト' do
     before do
-      visit new_user_session_path 
+      visit new_user_session_path
       fill_in 'Eメール', with: admin_user.email
       fill_in 'パスワード', with: admin_user.password
       click_button 'ログイン'
     end
-    
+
     context '管理ユーザがログインした場合' do
       it 'ユーザの新規登録ができること' do
         visit '/admin/user/new'
@@ -44,13 +43,13 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         click_on '保存'
         expect(page).to have_content 'ユーザーの 作成しました に成功しました'
       end
-    
+
       it '管理ユーザはユーザの詳細画面にアクセスできること' do
         other_user = FactoryBot.create(:user)
         visit "/admin/user/#{other_user.id}"
         expect(current_path).to eq "/admin/user/#{other_user.id}"
       end
-    
+
       it '管理ユーザはユーザの編集画面からユーザを編集できること' do
         other_user = FactoryBot.create(:user)
         visit "/admin/user/#{other_user.id}/edit"
@@ -76,47 +75,33 @@ RSpec.describe 'ユーザー管理機能', type: :system do
     let(:user1) { FactoryBot.create(:user) }
     let(:user2) { FactoryBot.create(:user) }
     let!(:task) { FactoryBot.create(:task, user_id: user1.id) }
-  
+
     context '他のユーザーのタスク編集ページにアクセスしようとした場合' do
       it 'アクセス制限がかかり、編集ページにアクセスできない' do
         # user1でログインしてタスクを作成
         visit new_user_session_path
-        sleep(2)
         fill_in 'Eメール', with: user1.email
-        sleep(2)
         fill_in 'パスワード', with: user1.password
-        sleep(2)
         click_button 'ログイン'
-        sleep(2)
         visit new_task_path
-        sleep(2)
         fill_in 'task[name]', with: 'User1 Task'
-        sleep(2)
         fill_in 'task[description]', with: 'User1 Task Description'
-        sleep(2)
         click_button '登録'
-        sleep(2)
         click_link 'ログアウト'
-  
+
         # user2でログイン
         visit new_user_session_path
-        sleep(2)
         fill_in 'Eメール', with: user2.email
-        sleep(2)
         fill_in 'パスワード', with: user2.password
-        sleep(2)
         click_button 'ログイン'
-  
+
         # user1が作成したタスクの編集ページにアクセスしようとする
         visit edit_task_path(task)
-        sleep(2)
-        expect(current_path).not_to eq edit_task_path(task) 
-        sleep(2)# 編集ページにアクセスできないことを確認
-        expect(page).to have_content 'アクセス権限がありません' # アクセス制限のメッセージが表示されることを確認（実際のメッセージに合わせてください）
+        expect(current_path).not_to eq edit_task_path(task)
+        expect(page).to have_content 'アクセス権限がありません'
       end
     end
   end
-  
 
   describe 'セッション機能のテスト' do
     before do
@@ -142,18 +127,12 @@ RSpec.describe 'ユーザー管理機能', type: :system do
 
       it 'ユーザは自身のアカウントを削除できること' do
         visit edit_user_registration_path
-        sleep(2) # ページの読み込みを待つ
-      
         page.accept_alert '本当によろしいですか？' do
-          click_on 'アカウント削除' # アカウント削除ボタンをクリック
+          click_on 'アカウント削除'
         end
-        sleep(2) # ページの遷移やメッセージの表示を待つ
-      
         expect(page).to have_content 'アカウントを削除しました。またのご利用をお待ちしております。'
         expect(current_path).to eq root_path
       end
-      
-      
     end
   end
 end
