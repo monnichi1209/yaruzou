@@ -22,7 +22,6 @@ RSpec.describe Task, type: :model do
         expect(task).not_to be_valid
       end
     end
-    
 
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
       it 'バリデーションが通る' do

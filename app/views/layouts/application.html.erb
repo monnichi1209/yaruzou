@@ -17,9 +17,9 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body style="font-size: 18px; background-color: #FFF5EE;">
-    <div class="header fixed-top d-flex justify-content-between align-items-center" style="background-color: #4B0082; height: 60px; padding: 0 20px;">
-        <%= link_to "やるゾウ", root_path, class: "text-white font-weight-bold ml-3" %>
+<body style="font-size: 18px; background-color: #FFFFFF;">
+    <div class="header fixed-top d-flex justify-content-between align-items-center" style="background-color: #F5F5F5; height: 60px; padding: 0 20px;">
+        <%= link_to "やるゾウ", root_path, class: "text-dark font-weight-bold ml-3" %>
 
         <div class="d-flex align-items-center">
             <% flash.each do |name, msg| %>
@@ -35,11 +35,11 @@
                 <% unless @is_home_page %>
                     <% if user_signed_in? %>
                         <% if current_user.admin? %>
-                            <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-white" %>
+                            <%= link_to '管理者ページ', rails_admin.dashboard_path, class: "mr-3 text-dark" %>
                         <% end %>
 
                         <% if controller_name == "parents" && action_name == "dashboard" %>
-                            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
+                            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-dark" %>
                         <% else %>
                             <% children = current_user.children %>
                             <select id="child-switcher" class="mr-3">
@@ -49,8 +49,8 @@
                                     </option>
                                 <% end %>
                             </select>
-                            <%= link_to "保護者", dashboard_parents_path, class: "mr-3 text-white" %>
-                            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-white" %>
+                            <%= link_to "保護者", dashboard_parents_path, class: "mr-3 text-dark" %>
+                            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "mr-3 text-dark" %>
                         <% end %>
                     <% end %>
                 <% end %>
@@ -62,7 +62,7 @@
         <%= yield %>
     </div>
 
-    <div class="footer text-center py-3" style="background-color: #4B0082; color: white; position: fixed; bottom: 0; width: 100%;">
+    <div class="footer text-center py-3" style="background-color: #F5F5F5; color: #333; position: fixed; bottom: 0; width: 100%;">
         &copy; <%= Time.now.year %> やるゾウ. All rights reserved.
     </div>
 

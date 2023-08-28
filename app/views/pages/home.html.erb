@@ -1,100 +1,95 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
-<div class="container mt-5 my-5" id="vueApp" >
-  <h1 class="display-4 text-center mb-4">「やるゾウ」<br>子供のお手伝いを楽しく習慣化するアプリ</h1>
-  
-  <!-- Flexbox コンテナ -->
-  <div class="d-flex align-items-center justify-content-center mb-4">
-    <!-- メッセージとボタンを含む部分 -->
-    <div class="mr-4 text-center">
-      <h2>{{ dynamicMessage }}</h2>
-      <button @click="changeMessage" class="btn btn-primary btn-lg rounded-pill">
-  🦣やるゾウからのおことば🐘
-</button>
-
-    </div>
+<!-- 全体のコンテナ -->
+<div>
+  <!-- メインコンテンツセクション -->
+  <main id="vueApp" style="background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/images/22584528.jpg'); background-size: auto; background-repeat: no-repeat; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
     
-    <!-- 画像を含む部分 -->
-    <div class="text-center">
-    <img src="/images/animal_zou.png" alt="Sample Image" class="img-fluid" style="max-width: 300px;">
-</div>
-
-
-  </div>
-</div>
-
-
-  <div class="intro-section mb-5 my-5 text-center">
-    <p class="lead">家庭でのお手伝いは子供の成長や社会性の育成に欠かせないもの。<br>「やるゾウ」を使えば、子供たちのお手伝いを楽しく習慣化できます。</p>
-    <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg mr-2" %> 
-<%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary btn-lg mr-2" %>
-<%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-light btn-lg mr-2" %>
-<%= link_to "管理者ゲストログイン", users_admin_guest_sign_in_path, method: :post, class: "btn btn-dark btn-lg" %>
-
+    <h1 class="display-5 text-center mb-4" style="z-index: 1; position: relative;">「やるゾウ」<br>子供のお手伝いを楽しく習慣化するアプリ</h1>
     
-  </div>
-
-<div class="container mt-5 my-5">
-  <!-- 特徴セクション -->
-  <div class="row mb-5">
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">楽しさと習慣化</h3>
-          <p class="card-text">「やるゾウ」は、お子様がお手伝いしたときの家庭内貢献をする楽しさと習慣化を重視し、協力性と自立心の培養を目指す教育的ツールです。</p>
-        </div>
+    <div class="d-flex align-items-center justify-content-center mb-4">
+      <div class="mr-4 text-center">
+        <h2>{{ dynamicMessage }}</h2>
+        <button @click="changeMessage" class="btn btn-primary btn-lg rounded-pill">
+          🦣やるゾウからのおことば🐘
+        </button>
+      </div>
+      <div class="text-center">
+        <img src="/images/animal_zou.png" alt="Sample Image" class="img-fluid" style="max-width: 300px;">
       </div>
     </div>
 
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">技術的特徴と問題解決</h3>
-          <p class="card-text">お手伝いの管理と子供たちの報酬システムを提供。タスクの進行状況、報酬のポイントシステムにより、子供のモチベーション維持や達成感を高めます。</p>
-        </div>
-      </div>
+    <div class="intro-section mb-5 my-5 text-center">
+      <p class="lead">家庭でのお手伝いは子供の成長や社会性の育成に欠かせないもの。<br>「やるゾウ」を使えば、子供たちのお手伝いを楽しく習慣化できます。</p>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg mr-2" %> 
+      <%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary btn-lg mr-2" %>
+      <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-light btn-lg mr-2" %>
+      <%= link_to "管理者ゲストログイン", users_admin_guest_sign_in_path, method: :post, class: "btn btn-dark btn-lg" %>
     </div>
-
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">親子の結びつき強化</h3>
-          <p class="card-text">このアプリケーションは親と子供の結びつきを強化。子供のお手伝いを楽しむきっかけを作り、親は子供の成長を実感する機会を得ることができます。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 機能セクション -->
-  <div class="row mb-5">
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">タスクの登録・管理</h3>
-          <p class="card-text">親はお手伝いのタスクを簡単に登録・管理できます。子供は自分のタスクの進行状況を確認し、状態を更新できます。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">報酬システム</h3>
-          <p class="card-text">タスクの完了に応じて子供にポイントが付与されます。貯めたポイントは、様々な報酬と交換することができます。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">アカウント管理</h3>
-          <p class="card-text">ユーザーのアカウント作成、ログイン・ログアウトの機能を提供。親子関係の管理も簡単に行うことができます。</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </main>
 </div>
+
+
+    <!-- 特徴セクション -->
+    <section class="features-section mb-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">楽しさと習慣化</h3>
+              <p class="card-text">「やるゾウ」は、お子様がお手伝いしたときの家庭内貢献をする楽しさと習慣化を重視し、協力性と自立心の培養を目指す教育的ツールです。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">技術的特徴と問題解決</h3>
+              <p class="card-text">お手伝いの管理と子供たちの報酬システムを提供。タスクの進行状況、報酬のポイントシステムにより、子供のモチベーション維持や達成感を高めます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">親子の結びつき強化</h3>
+              <p class="card-text">このアプリケーションは親と子供の結びつきを強化。子供のお手伝いを楽しむきっかけを作り、親は子供の成長を実感する機会を得ることができます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 機能セクション -->
+    <section class="functions-section mb-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">タスクの登録・管理</h3>
+              <p class="card-text">親はお手伝いのタスクを簡単に登録・管理できます。子供は自分のタスクの進行状況を確認し、状態を更新できます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">報酬システム</h3>
+              <p class="card-text">タスクの完了に応じて子供にポイントが付与されます。貯めたポイントは、様々な報酬と交換することができます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">アカウント管理</h3>
+              <p class="card-text">ユーザーのアカウント作成、ログイン・ログアウトの機能を提供。親子関係の管理も簡単に行うことができます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
 <script>
 document.addEventListener('turbolinks:load', () => {
@@ -111,5 +106,3 @@ document.addEventListener('turbolinks:load', () => {
   });
 });
 </script>
-
-

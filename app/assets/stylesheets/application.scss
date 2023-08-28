@@ -22,6 +22,7 @@
   --font-primary: 'MPLUS1p', sans-serif;
 }
 
+
 /* Global Styles */
 body {
   font-family: var(--font-primary);
@@ -72,9 +73,10 @@ body {
 
 /* Main Content Styles */
 .main-content {
-  padding: 20px;
+  padding: 60px 0px 0px 0px;
   background-color: #FFF5EE;
   transition: margin-left 0.3s;
+  
 }
 
 .main-content-no-menu {
@@ -187,7 +189,5 @@ body {
   .side-menu {
     width: 80px;
   }
-  .main-content {
-    margin-left: 160px;  // 150px + 10pxの余白
-  }
+
 }

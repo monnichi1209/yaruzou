@@ -22,7 +22,7 @@ parent_users = []
   parent_users << User.create(
     email: "user#{i + 1}@example.com",
     password: 'password',
-    name: "User #{i + 1}",
+    name: "User #{i + 1}"
   )
 end
 
@@ -30,7 +30,7 @@ end
 parent_users.each do |parent|
   5.times do |i|
     child = User.create(
-      email: SecureRandom.uuid + "@example.com",
+      email: SecureRandom.uuid + '@example.com',
       password: 'password',
       name: "Child #{i + 1} of #{parent.name}",
       role: 0
@@ -45,13 +45,12 @@ users = User.where.not(role: 0) # "こども"のroleを持たないユーザー�
 due_dates = [Date.today, Date.today + 1, Date.today + 7] # 今日、明日、来週の日付
 
 users.each do |user|
-  
   5.times do |i|
     Task.create(
       name: "Task #{i + 1} for #{user.name}",
       description: "This is a description for Task #{i + 1} owned by #{user.name}",
       due_on: due_dates.sample,
-      user_id: user.id,  # ここでユーザーとの関連付けを行う
+      user_id: user.id, # ここでユーザーとの関連付けを行う
       reward: rand(100..5000)  # ポイント（reward）をランダムに設定する
     )
   end

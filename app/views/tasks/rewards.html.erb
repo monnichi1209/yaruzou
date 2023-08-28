@@ -1,3 +1,4 @@
+<div style="background-color: desired-color; min-height: 100vh;">
 <div class="container mt-5">
   <div class="header-section d-flex justify-content-between align-items-center">
     <h1 class="display-4 mb-4">🎁ごほうび🎁</h1>
@@ -11,20 +12,20 @@
 <nav class="side-menu bg-primary p-3 rounded d-flex flex-column justify-content-center">
   <ul class="list-group">
     <%= link_to tasks_for_kids_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
-      <li class="list-group-item bg-info mb-2 rounded text-center py-5 card">
-        <i class="fas fa-question-circle text-white d-block mb-1"></i> て<br>つ<br>だ<br>う
+      <li class="list-group-item bg-info mb-2 rounded text-center py-3 card">
+        <i class="fas fa-question-circle text-white d-block mb-1"></i> てつだう
       </li>
     <% end %>
 <br>
     <%= link_to tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
-      <li class="list-group-item bg-success mb-2 rounded text-center py-5 card">
-        <i class="fas fa-tasks text-white d-block mb-1"></i> や<br>っ<br>て<br>る
+      <li class="list-group-item bg-success mb-2 rounded text-center py-3 card">
+        <i class="fas fa-tasks text-white d-block mb-1"></i> やってる
       </li>
     <% end %>
 <br>
     <%= link_to rewards_tasks_path(child_id: params[:child_id]), class: "text-white d-block" do %>
-      <li class="list-group-item bg-warning mb-2 rounded text-center py-5 card">
-        <i class="fas fa-gift text-white d-block mb-1"></i> ご<br>ほ<br>う<br>び
+      <li class="list-group-item bg-warning mb-2 rounded text-center py-3 card">
+        <i class="fas fa-gift text-white d-block mb-1"></i> ごほうび
       </li>
     <% end %>
   </ul>
@@ -37,7 +38,7 @@
     <thead class="thead-dark">
       <tr>
         <th class="text-center">おてつだい</th>
-        <th class="text-center">いつまでにやるの？</th>
+        <th class="text-center">いつおわったの？</th>
         <th class="text-center">もらったポイント</th>
       </tr>
     </thead>
@@ -89,7 +90,7 @@
     <thead class="thead-dark">
       <tr>
         <th class="text-center">ごほうび</th>
-        <th class="text-center">いつもらったか？</th>
+        <th class="text-center">いつこうかんしたか？</th>
         <th class="text-center">ママパパからコメント</th>
       </tr>
     </thead>

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protected
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     role_selection_path
   end
 
@@ -9,14 +9,14 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_child_belongs_to_current_user
-  unless params[:child_id]
-  redirect_to root_path, alert: "child_idが提供されていません。"
-  return
+    unless params[:child_id]
+      redirect_to root_path, alert: 'child_idが提供されていません。'
+      return
+    end
+
+    @child = User.find(params[:child_id])
+    return if current_user.children.include?(@child)
+
+    redirect_to root_path, alert: 'アクセス権限がありません。'
   end
-  
-  @child = User.find(params[:child_id])
-  unless current_user.children.include?(@child)
-  redirect_to root_path, alert: "アクセス権限がありません。"
-  end
-  end
-  end
+end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'pages/home'
-  
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -44,7 +44,5 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener_web"
-  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener_web' if Rails.env.development?
 end

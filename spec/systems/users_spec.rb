@@ -65,7 +65,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         visit "/admin/user/#{other_user.id}/delete"
         click_on 'はい。間違いありません！'
         expect(page).to have_content 'ユーザーの 削除しました に成功しました'
-        expect(current_path).to eq "/admin/user"
+        expect(current_path).to eq '/admin/user'
         expect(page).not_to have_content other_user.name
       end
     end

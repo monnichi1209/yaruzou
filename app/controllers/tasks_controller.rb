@@ -1,29 +1,29 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: %i[show edit update destroy]
   before_action :authenticate_user!
   before_action :ensure_child_belongs_to_current_user, only: [:rewards]
 
   def index
-    if params[:child_id]
-      @tasks = Task.where(user_id: params[:child_id], status: "着手中").page(params[:page]).per(5)
-    else
-      @tasks = Task.page(params[:page]).per(5)
-    end
+    @tasks = if params[:child_id]
+               Task.where(user_id: params[:child_id], status: '着手中').page(params[:page]).per(5)
+             else
+               Task.page(params[:page]).per(5)
+             end
   end
 
   def choose
     task = Task.find(params[:id])
-    if task.update(user_id: params[:child_id], status: "着手中")
-      redirect_to tasks_path(child_id: params[:child_id]), notice: "おてつだいがんばってね！"
+    if task.update(user_id: params[:child_id], status: '着手中')
+      redirect_to tasks_path(child_id: params[:child_id]), notice: 'おてつだいがんばってね！'
     else
       puts task.errors.full_messages
-      redirect_to tasks_path(child_id: params[:child_id]), alert: "何らかのエラーが発生しました。"
+      redirect_to tasks_path(child_id: params[:child_id]), alert: '何らかのエラーが発生しました。'
     end
   end
 
   def mark_complete
     @task = Task.find(params[:id])
-    @task.update(status: "完了")
+    @task.update(status: '完了')
 
     child = User.find(@task.user_id)
     child.points ||= 0
@@ -40,20 +40,20 @@ class TasksController < ApplicationController
   end
 
   def tasks_for_kids
-    @tasks = Task.where(user_id: current_user.id).where.not(status: "着手中")
+    @tasks = Task.where(user_id: current_user.id).where.not(status: '着手中')
   end
 
   def rewards
     child_id = params[:child_id] || current_user.children.first&.id
 
     unless child_id
-      redirect_to root_path, alert: "関連する子供が存在しません。"
+      redirect_to root_path, alert: '関連する子供が存在しません。'
       return
     end
 
-    @completed_tasks = Task.where(user_id: child_id, status: "完了")
+    @completed_tasks = Task.where(user_id: child_id, status: '完了')
     @total_reward = @completed_tasks.sum(:reward)
-    @exchanged_items = Task.where(user_id: child_id, status: "交換済み")
+    @exchanged_items = Task.where(user_id: child_id, status: '交換済み')
   end
 
   def show
@@ -80,17 +80,17 @@ class TasksController < ApplicationController
 
   def cancel_task
     @task = Task.find(params[:id])
-    @task.update(status: "未着手", user_id: current_user.id)
+    @task.update(status: '未着手', user_id: current_user.id)
     redirect_back(fallback_location: tasks_path, notice: 'おてつだいをやめました。')
   end
 
   def edit
     @hide_sidebar = true
 
-    unless @task.user_id == current_user.id
-      redirect_to tasks_path, alert: 'アクセス権限がありません'
-      return
-    end
+    return if @task.user_id == current_user.id
+
+    redirect_to tasks_path, alert: 'アクセス権限がありません'
+    nil
   end
 
   def update
@@ -115,11 +115,11 @@ class TasksController < ApplicationController
     if child_points >= required_points
       new_points = child_points - required_points
       child.update_columns(points: new_points)
-      Task.create(name: item, status: "交換済み", user_id: child.id, description: "#{item}とこうかんしました。")
+      Task.create(name: item, status: '交換済み', user_id: child.id, description: "#{item}とこうかんしました。")
 
       redirect_to rewards_tasks_path(child_id: child.id), notice: "#{item}をこうかんしました！"
     else
-      redirect_to rewards_tasks_path(child_id: child.id), alert: "ポイントがたりません。"
+      redirect_to rewards_tasks_path(child_id: child.id), alert: 'ポイントがたりません。'
     end
   end
 

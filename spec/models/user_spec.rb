@@ -25,7 +25,8 @@ RSpec.describe User, type: :model do
 
     context 'ユーザーのメールアドレスと確認用メールアドレスが一致しない場合' do
       it 'バリデーションに引っかかる' do
-        user = User.new(name: 'Test User', email: 'test@example.com', email_confirmation: 'mismatch@example.com', password: 'password')
+        user = User.new(name: 'Test User', email: 'test@example.com', email_confirmation: 'mismatch@example.com',
+                        password: 'password')
         expect(user).not_to be_valid
       end
     end

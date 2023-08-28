@@ -1,11 +1,13 @@
+<div style="background-color: desired-color; min-height: 100vh;">
 <div class="container mt-5">
-  <h2 class="display-4 text-center mb-4">あなたの役割を選択してください</h2>
+  <h2 class="display-4 text-center mb-4" style="color: #333;">あなたの役割を選択してください</h2>
 
   <div class="d-flex flex-column align-items-center">
-    <%= link_to "保護者として進む", dashboard_parents_path, class: "btn btn-primary btn-lg mb-3" %>
+    <%= link_to "保護者として進む", dashboard_parents_path, class: "btn btn-outline-dark btn-lg mb-3" %>
 
     <% current_user.children.each do |child| %>
-      <%= link_to "#{child.name}として進む", tasks_path(child_id: child.id), class: "btn btn-secondary btn-lg mb-3" %>
+      <%= link_to "#{child.name}として進む", tasks_path(child_id: child.id), class: "btn btn-outline-secondary btn-lg mb-3" %>
     <% end %>
   </div>
+</div>
 </div>

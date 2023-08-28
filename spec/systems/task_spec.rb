@@ -8,7 +8,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       fill_in 'パスワード', with: user.password
       click_button 'ログイン'
     end
-    
+
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
         visit new_task_path
@@ -23,7 +23,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
-  
+
   describe '一覧表示機能' do
     let(:user) { FactoryBot.create(:user) }
     let!(:task1) { FactoryBot.create(:task, name: 'task1', description: 'Some description', user_id: user.id) }
@@ -38,17 +38,19 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-      visit tasks_path
-      expect(page).to have_content 'task1'
+        visit tasks_path
+        expect(page).to have_content 'task1'
       end
     end
-  end  
-  
+  end
+
   describe '詳細表示機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task) { FactoryBot.create(:task, name: 'Task Title', description: 'Task Content', created_at: Time.now - 1.day, user_id: user.id) }
+    let!(:task) do
+      FactoryBot.create(:task, name: 'Task Title', description: 'Task Content', created_at: Time.now - 1.day,
+                               user_id: user.id)
+    end
     before do
-
       visit new_user_session_path
       fill_in 'Eメール', with: user.email
       fill_in 'パスワード', with: user.password
@@ -67,7 +69,9 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '検索機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task1) { FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user_id: user.id, status: '未着手') }
+    let!(:task1) do
+      FactoryBot.create(:task, name: 'task1', created_at: Time.now - 1.day, user_id: user.id, status: '未着手')
+    end
     let!(:task2) { FactoryBot.create(:task, name: 'task2', created_at: Time.now, user_id: user.id, status: '完了') }
 
     before do
@@ -87,7 +91,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task1'
       end
     end
-  
+
     context 'ステータスで検索した場合' do
       it '選択したステータスに該当するタスクが表示される' do
         visit dashboard_parents_path
@@ -96,7 +100,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content '未着手'
       end
     end
-  
+
     context 'タイトルとステータスの両方で検索した場合' do
       it '検索したタイトルと選択したステータスに該当するタスクが表示される' do
         visit dashboard_parents_path
@@ -110,8 +114,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '編集更新機能' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:task) { FactoryBot.create(:task, name: 'Old Task Name', description: 'Old Task Description', user_id: user.id) }
-  
+    let!(:task) do
+      FactoryBot.create(:task, name: 'Old Task Name', description: 'Old Task Description', user_id: user.id)
+    end
+
     before do
       visit new_user_session_path
       fill_in 'Eメール', with: user.email
@@ -119,31 +125,31 @@ RSpec.describe 'タスク管理機能', type: :system do
       click_button 'ログイン'
       visit edit_task_path(task)
     end
-  
+
     context 'タスクを編集更新した場合' do
       it '編集した内容が更新されて表示される' do
         fill_in 'タスク名', with: 'Updated Task Name'
         fill_in '詳細', with: 'Updated Task Description'
         click_button '登録'
-  
-        expect(current_path).to eq task_path(task) 
+
+        expect(current_path).to eq task_path(task)
         expect(page).to have_content 'Updated Task Name'
         expect(page).to have_content 'Updated Task Description'
       end
     end
-  end  
+  end
 
   describe '削除機能' do
     let(:user) { FactoryBot.create(:user) }
     let!(:task) { FactoryBot.create(:task, name: 'Task to be deleted', user_id: user.id) }
-  
+
     before do
       visit new_user_session_path
       fill_in 'Eメール', with: user.email
       fill_in 'パスワード', with: user.password
       click_button 'ログイン'
     end
-  
+
     context 'タスクを削除した場合' do
       it 'タスクがリストから削除される' do
         visit dashboard_parents_path
