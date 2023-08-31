@@ -5,7 +5,7 @@
   <!-- メインコンテンツセクション -->
   <main id="vueApp" style="background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/images/22584528.jpg'); background-size: auto; background-repeat: no-repeat; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
     
-    <h1 class="display-5 text-center mb-4" style="z-index: 1; position: relative;">「やるゾウ」<br>子供のお手伝いを楽しく習慣化するアプリ</h1>
+    <h1 class="display-5 text-center mb-4" style="z-index: 1; position: relative;">「やるゾウ」<br><br>子供のお手伝いを楽しく<br>習慣化するアプリ</h1>
     
     <div class="d-flex align-items-center justify-content-center mb-4">
       <div class="mr-4 text-center">
@@ -19,13 +19,21 @@
       </div>
     </div>
 
-    <div class="intro-section mb-5 my-5 text-center">
-      <p class="lead">家庭でのお手伝いは子供の成長や社会性の育成に欠かせないもの。<br>「やるゾウ」を使えば、子供たちのお手伝いを楽しく習慣化できます。</p>
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg mr-2" %> 
-      <%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary btn-lg mr-2" %>
-      <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-light btn-lg mr-2" %>
-      <%= link_to "管理者ゲストログイン", users_admin_guest_sign_in_path, method: :post, class: "btn btn-dark btn-lg" %>
+      <div class="intro-section mb-5 my-5 text-center">
+    <p class="lead">家庭でのお手伝いは子供の成長や<br>社会性の育成に欠かせないもの。<br>「やるゾウ」を使えば、子供たちのお手伝いを<br>楽しく習慣化できます。</p>
+    
+    <div class="mb-3">
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg mr-2" %> 
+        <%= link_to "アカウント登録", new_user_registration_path, class: "btn btn-secondary btn-lg mr-2" %>
     </div>
+    
+    <div>
+        <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-light btn-lg mr-2" %>
+        <%= link_to "管理者ゲストログイン", users_admin_guest_sign_in_path, method: :post, class: "btn btn-dark btn-lg" %>
+    </div>
+</div>
+
+
   </main>
 </div>
 
@@ -100,7 +108,7 @@ document.addEventListener('turbolinks:load', () => {
     },
     methods: {
       changeMessage: function() {
-        this.dynamicMessage = 'おてつだいたくさんがんばるんだぞう🍎';
+        this.dynamicMessage = 'おてつだいがんばるんだぞう🍎';
       }
     }
   });

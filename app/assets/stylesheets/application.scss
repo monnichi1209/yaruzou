@@ -176,6 +176,59 @@ body {
   transform: translateY(-2px);
 }
 
+.popup button {
+  background-color: #3498db; /* 青色 */
+  color: white;
+  border: none;
+  padding: 40px 60px;
+  border-radius: 5px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.popup button:hover {
+  background-color: #2980b9; /* 濃い青色 */
+}
+
+.popup {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 800px;  /* 幅を500pxに設定 */
+  height: 800px; /* 高さも500pxに設定して正方形にする */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
 
 /* Font Styles */
 @font-face {

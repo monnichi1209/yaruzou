@@ -1,13 +1,45 @@
-<div style="background-color: desired-color; min-height: 100vh;">
-<div class="container mt-5">
-  <h2 class="display-4 text-center mb-4" style="color: #333;">あなたの役割を選択してください</h2>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- その他のヘッド要素 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x.x/dist/vue.js"></script>
+</head>
+<body>
+<div id="app" style="background-color: desired-color; min-height: 100vh;">
+    <!-- ポップアップウィンドウのコンポーネント -->
+    <div v-if="showPopup" class="popup">
+        <img src="/images/animal_zou.png" alt="ゾウのイラスト" style="width:500px; height:auto;">
+        <h2>「やるぞう」へようこそ！</h2>
+        <p>おてつだいをはじめるまえに</p>
+        <p>あなたが「ママパパ」か「こども」かおしえてね。</p>
+        <button @click="closePopup">どちらかえらぶ🍎</button>
+    </div>
 
-  <div class="d-flex flex-column align-items-center">
-    <%= link_to "保護者として進む", dashboard_parents_path, class: "btn btn-outline-dark btn-lg mb-3" %>
+    <div class="container mt-5">
+        <h2 class="display5 text-center mb-4" style="color: #333;">あなたはどっちですか？</h2>
 
-    <% current_user.children.each do |child| %>
-      <%= link_to "#{child.name}として進む", tasks_path(child_id: child.id), class: "btn btn-outline-secondary btn-lg mb-3" %>
-    <% end %>
-  </div>
+        <div class="d-flex flex-column align-items-center">
+            <%= link_to "パパママ", dashboard_parents_path, class: "btn btn-outline-dark btn-lg mb-3" %>
+
+            <% current_user.children.each do |child| %>
+                <%= link_to "#{child.name}として進む", tasks_path(child_id: child.id), class: "btn btn-outline-secondary btn-lg mb-3" %>
+            <% end %>
+        </div>
+    </div>
 </div>
-</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            showPopup: true
+        },
+        methods: {
+            closePopup: function() {
+                this.showPopup = false;
+            }
+        }
+    });
+</script>
+</body>
+</html>
