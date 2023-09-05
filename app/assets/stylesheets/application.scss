@@ -266,7 +266,17 @@ body {
 @media (max-width: 767.98px) and (orientation: landscape) {
   h1.display-5 {
     font-size: 20px;
+    margin-bottom: 10px; // マージンを調整してスペースを確保
+  }
+
+  .btn-lg {
+    padding: 8px 12px;
+    font-size: 16px;
+    margin-bottom: 5px; // ボタン同士のスペースを確保
+  }
+
+  .main-content {
+    padding: 30px 0px 0px 0px; // パディングを調整してスペースを確保
   }
 }
-
 
