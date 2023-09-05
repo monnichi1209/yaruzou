@@ -3,7 +3,7 @@
 <!-- 全体のコンテナ -->
 <div>
   <!-- メインコンテンツセクション -->
-  <main id="vueApp" style="background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/images/22584528.jpg'); background-size: auto; background-repeat: no-repeat; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+  <main id="vueApp" style="background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('/images/22584528.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
     
     <h1 class="display-5 text-center mb-4" style="z-index: 1; position: relative;">「やるゾウ」<br><br>子供のお手伝いを楽しく<br>習慣化するアプリ</h1>
     
@@ -11,7 +11,7 @@
       <div class="mr-4 text-center">
         <h2>{{ dynamicMessage }}</h2>
         <button @click="changeMessage" class="btn btn-primary btn-lg rounded-pill">
-          🦣やるゾウからのおことば🐘
+          やるゾウからのおことば🐘
         </button>
       </div>
       <div class="text-center">
@@ -104,11 +104,11 @@ document.addEventListener('turbolinks:load', () => {
   new Vue({
     el: '#vueApp',
     data: {
-      dynamicMessage: '☟クリックしてね🍎'
+      dynamicMessage: 'クリックして👇'
     },
     methods: {
       changeMessage: function() {
-        this.dynamicMessage = 'おてつだいがんばるんだぞう🍎';
+        this.dynamicMessage = 'がんばるぞう🍎';
       }
     }
   });

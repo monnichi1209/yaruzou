@@ -242,5 +242,24 @@ body {
   .side-menu {
     width: 80px;
   }
-
 }
+
+@media (max-width: 576px) {
+  h1.display-5 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .side-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+  }
+}
+
