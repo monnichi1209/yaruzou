@@ -264,6 +264,9 @@ body {
 }
 
 @media (max-width: 767.98px) and (orientation: landscape) {
-  // ランドスケープモード時のスタイルをここに追加
+  h1.display-5 {
+    font-size: 20px;
+  }
 }
+
 
