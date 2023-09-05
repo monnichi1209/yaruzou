@@ -8,12 +8,6 @@
     <h1 class="display-5 text-center mb-4" style="z-index: 1; position: relative;">「やるゾウ」<br><br>子供のお手伝いを楽しく<br>習慣化するアプリ</h1>
     
     <div class="d-flex align-items-center justify-content-center mb-4">
-      <div class="mr-4 text-center">
-        <h2>{{ dynamicMessage }}</h2>
-        <button @click="changeMessage" class="btn btn-primary btn-lg rounded-pill">
-          やるゾウからのおことば🐘
-        </button>
-      </div>
       <div class="text-center">
         <img src="/images/animal_zou.png" alt="Sample Image" class="img-fluid" style="max-width: 300px;">
       </div>
@@ -99,18 +93,4 @@
     </section>
   </main>
 
-<script>
-document.addEventListener('turbolinks:load', () => {
-  new Vue({
-    el: '#vueApp',
-    data: {
-      dynamicMessage: 'クリックして👇'
-    },
-    methods: {
-      changeMessage: function() {
-        this.dynamicMessage = 'がんばるぞう🍎';
-      }
-    }
-  });
-});
-</script>
+
